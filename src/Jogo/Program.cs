@@ -6,7 +6,6 @@ while (!Raylib.WindowShouldClose())
 {
     Raylib.BeginDrawing();
     Raylib.ClearBackground(Color.White);
-
     Raylib.DrawText("Hello, world!", 12, 12, 20, Color.Black);
 
     Raylib.EndDrawing();
