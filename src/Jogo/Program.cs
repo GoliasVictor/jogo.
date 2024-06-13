@@ -1,14 +1,61 @@
 ﻿using Raylib_cs;
 
-Raylib.InitWindow(800, 480, "Hello World");
+/// TODO: Add GameObject and UI classes for game handling containing Update and Render methods
 
-while (!Raylib.WindowShouldClose())
-{
-    Raylib.BeginDrawing();
-    Raylib.ClearBackground(Color.White);
-    Raylib.DrawText("Hello, world!", 12, 12, 20, Color.Black);
+namespace Game;
 
-    Raylib.EndDrawing();
+static class GameSystem {
+    private const int WindowWidth = 800;
+    private const int WindowHeight = 600;
+    private const string WindowName = "Elements";
+    private static Color ClearColor = Color.DarkGray;
+    
+    private static int TargetFPS = 60;
+    
+    /// TODO: Add GameObject and UI element lists
+
+    static void Main() {
+        Raylib.InitWindow(WindowWidth, WindowHeight, WindowName);
+
+        Raylib.SetTargetFPS(TargetFPS);
+
+        while (!Raylib.WindowShouldClose())
+        {
+            Update();
+            Render();
+        }
+
+        Raylib.CloseWindow();
+    }
+
+    private static void Update() { // Is it possible to make this async? Is it worth it?
+        UpdateObjects();
+        UpdateUI();
+    }
+
+    private static void Render() { // Is it necessary to implement render layers?
+        Raylib.BeginDrawing();
+
+            Raylib.ClearBackground(ClearColor);
+            RenderObjects();
+            RenderUI();
+
+        Raylib.EndDrawing();
+    }
+
+    private static void UpdateObjects() {
+         
+    }
+
+    private static void UpdateUI() {
+
+    }
+
+    private static void RenderObjects() {
+
+    }
+
+    private static void RenderUI() {
+
+    }
 }
-
-Raylib.CloseWindow();
