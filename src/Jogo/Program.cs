@@ -1,19 +1,24 @@
 ﻿using Raylib_cs;
 
-namespace Game;
 
 /// <sumary>
 /// Static class Responsible for starting and running the game.  
 ///</sumary>
 static class GameSystem {
-    private const int DefaultWindowWidth = 800;
-    private const int DefaultWindowHeight = 600;
+    public const int DefaultWindowWidth = 800;
+    public const int DefaultWindowHeight = 600;
     private const string DefaultWindowName = "Elements";
+    public const int TileSize = 30;
 
     private static Color ClearColor = Color.DarkGray;
     private static int TargetFPS = 60;
-
-
+    private static IScene ActualScene;
+    static GameSystem(){
+        var grid = new IEntity[17, 17];
+        grid[8, 8] = new PlayerEntity();
+        ActualScene = new LevelScene([new PlayerMovingSystem()], new Map(grid));
+        
+    }
     static void Main() {
         Raylib.InitWindow(DefaultWindowWidth, DefaultWindowHeight, DefaultWindowName);
 
@@ -66,7 +71,7 @@ static class GameSystem {
     /// <seealso cref="M:Game.GameSystem.RenderObjects"/>
     /// </summary>
     private static void UpdateObjects() {
-         
+        ActualScene.Update();
     }
 
     /// <summary>
@@ -88,7 +93,7 @@ static class GameSystem {
     /// <seealso cref="M:Game.GameSystem.UpdateObjects"/> 
     /// </summary>
     private static void RenderObjects() {
-
+        ActualScene.Render();
     }
 
     /// <summary>
