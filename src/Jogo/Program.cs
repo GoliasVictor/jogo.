@@ -18,6 +18,7 @@ static class GameSystem {
         Raylib.InitWindow(DefaultWindowWidth, DefaultWindowHeight, DefaultWindowName);
 
         Raylib.SetTargetFPS(TargetFPS);
+        Raylib.InitAudioDevice();
 
         while (!Raylib.WindowShouldClose())
         {
@@ -25,6 +26,7 @@ static class GameSystem {
             Render();
         }
 
+        Raylib.CloseAudioDevice();
         Raylib.CloseWindow();
     }
 
