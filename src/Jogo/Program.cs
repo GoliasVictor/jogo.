@@ -1,21 +1,21 @@
 ﻿using Raylib_cs;
 
-/// TODO: Add GameObject and UI classes for game handling containing Update and Render methods
-
 namespace Game;
 
+/// <sumary>
+/// Static class Responsible for starting and running the game.  
+///</sumary>
 static class GameSystem {
-    private const int WindowWidth = 800;
-    private const int WindowHeight = 600;
-    private const string WindowName = "Elements";
+    private const int DefaultWindowWidth = 800;
+    private const int DefaultWindowHeight = 600;
+    private const string DefaultWindowName = "Elements";
+
     private static Color ClearColor = Color.DarkGray;
-    
     private static int TargetFPS = 60;
-    
-    /// TODO: Add GameObject and UI element lists
+
 
     static void Main() {
-        Raylib.InitWindow(WindowWidth, WindowHeight, WindowName);
+        Raylib.InitWindow(DefaultWindowWidth, DefaultWindowHeight, DefaultWindowName);
 
         Raylib.SetTargetFPS(TargetFPS);
 
@@ -28,12 +28,25 @@ static class GameSystem {
         Raylib.CloseWindow();
     }
 
-    private static void Update() { // Is it possible to make this async? Is it worth it?
+
+    /// <summary>
+    /// <para> Called inside the Game Loop for handling logic.</para>
+    /// <para> Calls <c>GameSystem.UpdateObjects()</c> and <c>GameSystem.UpdateUI()</c>.</para>
+    /// <seealso cref="M:Game.GameSystem.UpdateObjects"/>
+    /// <seealso cref="M:Game.GameSystem,UpdateUI"/> 
+    /// </summary>
+    private static void Update() {
         UpdateObjects();
         UpdateUI();
     }
 
-    private static void Render() { // Is it necessary to implement render layers?
+    /// <summary>
+    /// <para> Called inside the Game Loop for rendering items on screen.</para>
+    /// <para> Renders Objects first, then UI.</para>
+    /// <seealso cref="M:Game.GameSystem.RenderObjects"/>
+    /// <seealso cref="M:Game.GameSystem.RenderUI"/> 
+    /// </summary>
+    private static void Render() {
         Raylib.BeginDrawing();
 
             Raylib.ClearBackground(ClearColor);
@@ -43,18 +56,46 @@ static class GameSystem {
         Raylib.EndDrawing();
     }
 
+    /// <summary>
+    /// <para> Called by <c>GameSystem.Update()</c>.</para>
+    /// <para> Call <c>Object.Update()</c> for every <c>Object</c> in list.</para>
+    /// <seealso cref="M:Game.GameSystem.Update"/> 
+    /// <seealso cref="M:Game.GameSystem.UpdateUI"/> 
+    /// <seealso cref="M:Game.GameSystem.RenderObjects"/>
+    /// </summary>
     private static void UpdateObjects() {
          
     }
 
+    /// <summary>
+    /// <para> Called by <c>GameSystem.Update()</c>.</para>
+    /// <para> Call <c>UI.Update()</c> for every <c>UI Element</c> in list.</para>
+    /// <seealso cref="M:Game.GameSystem.Update"/> 
+    /// <seealso cref="M:Game.GameSystem.UpdateObject"/> 
+    /// <seealso cref="M:Game.GameSystem.RenderUI"/>
+    /// </summary>
     private static void UpdateUI() {
 
     }
 
+    /// <summary>
+    /// <para> Called by <c>GameSystem.Render()</c>.</para>
+    /// <para> Call <c>Object.Render()</c> for every <c>Object</c> in list.</para>
+    /// <seealso cref="M:Game.GameSystem.Render"/> 
+    /// <seealso cref="M:Game.GameSystem.RenderUI"/>
+    /// <seealso cref="M:Game.GameSystem.UpdateObjects"/> 
+    /// </summary>
     private static void RenderObjects() {
 
     }
 
+    /// <summary>
+    /// <para> Called by <c>GameSystem.Render()</c>.</para>
+    /// <para> Call <c>UI.Render()</c> for every <c>UI Element</c> in list.</para>
+    /// <seealso cref="M:Game.GameSystem.Render"/> 
+    /// <seealso cref="M:Game.GameSystem.UpdateUI"/> 
+    /// <seealso cref="M:Game.GameSystem.RenderObjects"/>
+    /// </summary>
     private static void RenderUI() {
 
     }
