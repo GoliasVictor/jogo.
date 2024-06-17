@@ -11,11 +11,11 @@ static class GameSystem {
     public const int TileSize = 30;
 
     private static Color ClearColor = Color.DarkGray;
-    private static int TargetFPS = 60;
-    private static IScene ActualScene;
+    private static int targetFPS = 60;
+    private static IScene currentScene;
     static GameSystem(){
         var grid = new IEntity[17, 17];
-        ActualScene = new LevelScene([new PlayerMovingSystem()], new Map(grid,[
+        currentScene = new LevelScene([new PlayerMovingSystem()], new Map(grid,[
             new PlayerEntity(new GridVec2(8,8)),
             new BlockEntity(new GridVec2(10,10)),
         ]));
@@ -24,7 +24,7 @@ static class GameSystem {
     static void Main() {
         Raylib.InitWindow(DefaultWindowWidth, DefaultWindowHeight, DefaultWindowName);
 
-        Raylib.SetTargetFPS(TargetFPS);
+        Raylib.SetTargetFPS(targetFPS);
         Raylib.InitAudioDevice();
 
         while (!Raylib.WindowShouldClose())
@@ -73,7 +73,7 @@ static class GameSystem {
     /// <seealso cref="M:Game.GameSystem.RenderObjects"/>
     /// </summary>
     private static void UpdateObjects() {
-        ActualScene.Update();
+        currentScene.Update();
     }
 
     /// <summary>
@@ -95,7 +95,7 @@ static class GameSystem {
     /// <seealso cref="M:Game.GameSystem.UpdateObjects"/> 
     /// </summary>
     private static void RenderObjects() {
-        ActualScene.Render();
+        currentScene.Render();
     }
 
     /// <summary>

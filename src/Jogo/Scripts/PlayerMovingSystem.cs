@@ -1,9 +1,16 @@
 using Raylib_cs;
 
+/// <summary>
+/// Represents a system responsible for updating the movement of the player in the game.
+/// </summary>
 class PlayerMovingSystem : ISystem<LevelScene>
 {  
+	/// <summary>
+	/// Updates the movement of the player based on the user input.
+	/// </summary>
+	/// <param name="level">The current level scene.</param>
 	public void Update(LevelScene level)
-    {
+	{
 		GridVec2 delta;
 		if (Raylib.IsKeyPressed(KeyboardKey.Left))
 			delta = GridVec2.LEFT;
@@ -28,5 +35,5 @@ class PlayerMovingSystem : ISystem<LevelScene>
 		if (level.Map[newPos].Any(e => !e.CanOverlapedBy(level, player)))
 			return;
 		player.Position = newPos;
-    }
+	}
 }
