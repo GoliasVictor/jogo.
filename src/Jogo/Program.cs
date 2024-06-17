@@ -15,8 +15,10 @@ static class GameSystem {
     private static IScene ActualScene;
     static GameSystem(){
         var grid = new IEntity[17, 17];
-        grid[8, 8] = new PlayerEntity();
-        ActualScene = new LevelScene([new PlayerMovingSystem()], new Map(grid));
+        ActualScene = new LevelScene([new PlayerMovingSystem()], new Map(grid,[
+            new PlayerEntity(new GridVec2(8,8)),
+            new BlockEntity(new GridVec2(10,10)),
+        ]));
         
     }
     static void Main() {

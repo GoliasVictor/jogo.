@@ -4,6 +4,12 @@ using Raylib_cs;
 
 class EmptyEntity : IEntity
 {
+    public GridVec2 Position { get; set; }
+
+    public bool CanOverlapedBy(LevelScene level, IEntity entity)
+    {
+        return true;
+    }
 
     public void Render(LevelScene level, int x, int y)
     {
