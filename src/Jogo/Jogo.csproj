@@ -11,4 +11,10 @@
     <PackageReference Include="RayLib-cs" Version="6.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Step.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

@@ -1,6 +1,6 @@
 ﻿using Raylib_cs;
 
-namespace IAudio
+namespace Game
 {
     /// <summary>
     /// Interface para carregar streams de audio Raylib
@@ -8,40 +8,44 @@ namespace IAudio
     internal interface IAudio
     {
         /// <summary>
-        /// Enum de diferentes arquivos de musica
+        /// Enum of different music files
         /// </summary>
-        enum Musica
+        public enum MusicEffect
         {
-            TelaInicial,
+            TitleScreen,
             Puzzle,
-            Boss
+            Boss,
+            GameEnd
         }
 
         /// <summary>
-        /// Enum de diferentes arquivos de Efeitos sonoros
+        /// Enum of different sound effects
         /// </summary>
-        enum EfeitoSonoro
+        public enum SoundEffect
         {
-            Andar,
-            Bloco,
-            Fogo,
-            Agua,
-            Madeira,
-            Parede
+            Step,
+            Block,
+            Fire,
+            Water,
+            Wood,
+            Wall
         }
 
         /// <summary>
-        /// Retorna AudioStream da musica
+        /// <param>Used to get AudioStream from desired music</param>
         /// </summary>
-        /// <param name="musica">Musica</param>
+        /// <param name="music">Music</param>
         /// <returns>AudioStream</returns>
-        Music getMusica(Musica musica);
+        public Music GetMusic(MusicEffect music);
 
         /// <summary>
-        /// Retorna AudioStream do efeito sonoro
+        /// <param>Used to play Sound Effects</param>
+        /// <param>If no valid (or implemented) sound is provided, plays step sound</param>
         /// </summary>
-        /// <param name="som">EfeitoSonoro</param>
+        /// <param name="sound">SoundEffect</param>
         /// <returns>AudioStream</returns>
-        Sound getSom(EfeitoSonoro som);
+        public void PlaySound(SoundEffect sound);
+
+        public void UpdateMusic();
     }
 }
