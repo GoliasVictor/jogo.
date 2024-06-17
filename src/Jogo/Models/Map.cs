@@ -1,44 +1,49 @@
 using System.Reflection.Metadata;
+using System.Linq;
 using Raylib_cs;
 
 class Map {
-	IEntity[,] grid { get; init; }
-	public int Rows => grid.GetLength(0); 
-	public int Collumns => grid.GetLength(1); 
-	public IEnumerable<IEntity> entities { get {
-			for (int i = 0; i < grid.GetLength(0); i++)
-				for (int j = 0; j < grid.GetLength(1); j++)
-					if (grid[i, j] != null)
-						yield return grid[i, j] ;
+	public IEntity[,] FixedEntities { get; private init; }
+	
+	public List<IEntity> MovableEntities { get; private init; }
+	public int Rows => FixedEntities.GetLength(0); 
+	public int Collumns => FixedEntities.GetLength(1); 
+	public IEnumerable<IEntity> AllEntities { get {
+			for (int i = 0; i < FixedEntities.GetLength(0); i++)
+				for (int j = 0; j < FixedEntities.GetLength(1); j++)
+					if (FixedEntities[i, j] != null)
+						yield return FixedEntities[i, j] ;
+			foreach(var entity in MovableEntities){
+				yield return entity;
+			}
 		}
 	}
 	
-	public IEntity this[int i, int j]{
+	public IEnumerable<IEntity> this[int i, int j]{
         get
         {
 			if (0 > i || i >= Rows)
 				throw new IndexOutOfRangeException();
 			if (0 > j || j >= Collumns)
 				throw new IndexOutOfRangeException();
-            return grid[i, j]; 
-        } 
-          
-        set
-        {
-            grid[i, j] = value ?? new EmptyEntity(); 
+            yield return FixedEntities[i, j];
+
+			foreach (var entity in AllEntities)
+				if (entity.Position.i == i && entity.Position.j == j )
+					yield return entity;
         } 
 	}
-	public IEntity? this[TileVec2 pos] 
-    {
-		get => this[pos.i, pos.j];
-		set => this[pos.i, pos.j] = value; 
-    } 
+	public IEnumerable<IEntity> this[GridVec2 pos]  => this[pos.i, pos.j];
 
-	public Map(IEntity[,] grid){
-		this.grid = grid;
-		for (int i = 0; i < grid.GetLength(0); i++)
-			for (int j = 0; j < grid.GetLength(1); j++)
-				if (grid[i, j] == null)
-					grid[i, j] = new EmptyEntity();
+	public Map(IEntity[,] fixedEntities, IEnumerable<IEntity>  movableEntities){
+		this.FixedEntities = fixedEntities;
+		for (int i = 0; i < fixedEntities.GetLength(0); i++){
+			for (int j = 0; j < fixedEntities.GetLength(1); j++){
+				if (fixedEntities[i, j] == null)
+					fixedEntities[i, j] = new EmptyEntity();
+				fixedEntities[i, j].Position = new GridVec2(i, j);
+			}
+		}
+		this.MovableEntities =  movableEntities.Where(e => e != null).ToList();
 	}
 }

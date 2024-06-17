@@ -4,16 +4,9 @@ using Raylib_cs;
 
 class LevelScene: IScene {
 	ISystem<LevelScene>[] systems;
-	public Map map { get; private init; }
-	public TileVec2 PlayerPosition { get {
-			for( int i =0; i < map.Rows; i++){
-				for (int j = 0; j < map.Collumns; j++) {
-					if(map[i, j] is PlayerEntity){
-						return new TileVec2(i, j);
-					}
-				}
-			}
-			return new TileVec2(-1,-1);
+	public Map Map { get; private init; }
+	public IEntity Player { get {
+			return Map.MovableEntities.First(e => e is PlayerEntity);
 		}
 	}
 
@@ -24,16 +17,16 @@ class LevelScene: IScene {
 	}
 	public LevelScene(ISystem<LevelScene>[] systems, Map map ){
 		this.systems = systems;
-		this.map = map;
+		this.Map = map;
 	}
-
+	
 	public void Render(){
-		int start_x = GameSystem.DefaultWindowWidth / 2 - map.Collumns*GameSystem.TileSize/2; 
-		int start_y = GameSystem.DefaultWindowHeight / 2 - map.Rows*GameSystem.TileSize/2; 
-		for( int i =0; i < map.Rows; i++){
-			for (int j = 0; j < map.Collumns; j++) {
-				map[i, j]?.Render(this, start_x + j * GameSystem.TileSize, start_y + i * GameSystem.TileSize);
-			}
+		int start_x = GameSystem.DefaultWindowWidth / 2 - Map.Collumns*GameSystem.TileSize/2; 
+		int start_y = GameSystem.DefaultWindowHeight / 2 - Map.Rows*GameSystem.TileSize/2; 
+		foreach (var entity in Map.AllEntities ){
+			var x = start_x + entity.Position.j * GameSystem.TileSize;
+			var y = start_y + entity.Position.i * GameSystem.TileSize;
+			entity.Render(this, x, y);
 		}
 	}
 
