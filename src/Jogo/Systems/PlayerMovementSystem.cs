@@ -32,7 +32,7 @@ class PlayerMovementSystem : ISystem<LevelScene>
 		foreach(var entity in level.Map[newPos]){
 			entity.Collide(level, player);
 		}
-		if (level.Map[newPos].Any(e => !e.CanOverlapedBy(level, player)))
+		if (level.Map[newPos].Any(e => !e.CanOverlapWith(level, player)))
 			return;
 		player.Position = newPos;
 	}

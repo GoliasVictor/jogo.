@@ -21,7 +21,7 @@ class BlockEntity : IEntity
 		Position = position;
 	}
 
-	public bool CanOverlapedBy(LevelScene level, IEntity entity)
+	public bool CanOverlapWith(LevelScene level, IEntity entity)
 	{
 		return false;
 	}
@@ -55,7 +55,7 @@ class BlockEntity : IEntity
 			{
 				another.Collide(level, this);
 			}
-			if (level.Map[newPos].Any(e => !e.CanOverlapedBy(level, this)))
+			if (level.Map[newPos].Any(e => !e.CanOverlapWith(level, this)))
 				return;
 			Position = newPos;
 		}

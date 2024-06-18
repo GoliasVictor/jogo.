@@ -24,7 +24,7 @@ interface IEntity
 	/// <param name="level">The level scene to check for overlapping entities.</param>
 	/// <param name="entity">The entity to check for overlapping.</param>
 	/// <returns>True if the entity can be overlapped by the specified entity, otherwise false.</returns>
-	bool CanOverlapedBy(LevelScene level, IEntity entity);
+	bool CanOverlapWith(LevelScene level, IEntity entity);
 
 	/// <summary>
 	/// Handles the collision between the entity and the player on the specified level scene.

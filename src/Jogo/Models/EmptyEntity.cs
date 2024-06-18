@@ -9,7 +9,7 @@ class EmptyEntity : IEntity
 {
     public GridVec2 Position { get; set; }
 
-    public bool CanOverlapedBy(LevelScene level, IEntity entity)
+    public bool CanOverlapWith(LevelScene level, IEntity entity)
     {
         return true;
     }
