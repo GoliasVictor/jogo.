@@ -1,23 +1,30 @@
 ﻿using Raylib_cs;
 
-namespace Game;
 
 /// <sumary>
 /// Static class Responsible for starting and running the game.  
 ///</sumary>
 static class GameSystem {
-    private const int DefaultWindowWidth = 800;
-    private const int DefaultWindowHeight = 600;
+    public const int DefaultWindowWidth = 800;
+    public const int DefaultWindowHeight = 600;
     private const string DefaultWindowName = "Elements";
+    public const int TileSize = 30;
 
     private static Color ClearColor = Color.DarkGray;
-    private static int TargetFPS = 60;
-
-
+    private static int targetFPS = 60;
+    private static IScene currentScene;
+    static GameSystem(){
+        var grid = new IEntity[17, 17];
+        currentScene = new LevelScene([new PlayerMovementSystem()], new Map(grid,[
+            new PlayerEntity(new GridVec2(8,8)),
+            new BlockEntity(new GridVec2(10,10)),
+        ]));
+        
+    }
     static void Main() {
         Raylib.InitWindow(DefaultWindowWidth, DefaultWindowHeight, DefaultWindowName);
 
-        Raylib.SetTargetFPS(TargetFPS);
+        Raylib.SetTargetFPS(targetFPS);
         Raylib.InitAudioDevice();
 
         while (!Raylib.WindowShouldClose())
@@ -66,7 +73,7 @@ static class GameSystem {
     /// <seealso cref="M:Game.GameSystem.RenderObjects"/>
     /// </summary>
     private static void UpdateObjects() {
-         
+        currentScene.Update();
     }
 
     /// <summary>
@@ -88,7 +95,7 @@ static class GameSystem {
     /// <seealso cref="M:Game.GameSystem.UpdateObjects"/> 
     /// </summary>
     private static void RenderObjects() {
-
+        currentScene.Render();
     }
 
     /// <summary>
