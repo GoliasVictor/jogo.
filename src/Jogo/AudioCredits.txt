@@ -1,0 +1,4 @@
+﻿SFXStep = https://opengameart.org/content/12-player-movement-sfx
+SFXWall = https://opengameart.org/content/12-player-movement-sfx
+SFXFire = https://opengameart.org/content/spell-4-fire
+SFXWater = https://opengameart.org/content/water-splashes

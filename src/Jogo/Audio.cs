@@ -13,17 +13,17 @@ namespace Game
 
         public void PlaySound(IAudio.SoundEffect soundEffect)
         {
-            string SoundFileName = "Step.wav";
+            string SoundFileName = "SFXStep.wav";
             if (soundEffect == IAudio.SoundEffect.Block) 
                 SoundFileName = "Block.wav";
             else if (soundEffect == IAudio.SoundEffect.Fire)
-                SoundFileName = "Fire.wav";
+                SoundFileName = "SFXFire.wav";
             else if (soundEffect == IAudio.SoundEffect.Water)
-                SoundFileName = "Water.wav";
+                SoundFileName = "SFXWater.wav";
             else if (soundEffect == IAudio.SoundEffect.Wood)
                 SoundFileName = "Wood.wav";
-            else if (soundEffect == IAudio.SoundEffect.Block)
-                SoundFileName = "Block.wav";
+            else if (soundEffect == IAudio.SoundEffect.Wall)
+                SoundFileName = "SFXWall.wav";
             Sound sound = Raylib.LoadSound(SoundFileName);
             Raylib.PlaySound(sound);
         }
