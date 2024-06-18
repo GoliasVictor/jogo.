@@ -15,7 +15,7 @@ static class GameSystem {
     private static IScene currentScene;
     static GameSystem(){
         var grid = new IEntity[17, 17];
-        currentScene = new LevelScene([new PlayerMovingSystem()], new Map(grid,[
+        currentScene = new LevelScene([new PlayerMovementSystem()], new Map(grid,[
             new PlayerEntity(new GridVec2(8,8)),
             new BlockEntity(new GridVec2(10,10)),
         ]));

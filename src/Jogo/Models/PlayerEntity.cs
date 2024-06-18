@@ -38,7 +38,7 @@ class PlayerEntity : IEntity
     /// <param name="level">The level scene where the player entity exists.</param>
     /// <param name="entity">The entity to check for overlap.</param>
     /// <returns><c>true</c> if the player entity can be overlapped by the specified entity; otherwise, <c>false</c>.</returns>
-    public bool CanOverlapedBy(LevelScene level, IEntity entity)
+    public bool CanOverlapWith(LevelScene level, IEntity entity)
     {
         return false;
     }
