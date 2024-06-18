@@ -3,7 +3,7 @@ using Raylib_cs;
 /// <summary>
 /// Represents a system responsible for updating the movement of the player in the game.
 /// </summary>
-class PlayerMovingSystem : ISystem<LevelScene>
+class PlayerMovementSystem : ISystem<LevelScene>
 {  
 	/// <summary>
 	/// Updates the movement of the player based on the user input.
