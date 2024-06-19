@@ -15,7 +15,8 @@ namespace Game
             TitleScreen,
             Puzzle,
             Boss,
-            GameEnd
+            GameEnd,
+            None
         }
 
         /// <summary>
@@ -27,7 +28,8 @@ namespace Game
             PushBlock,
             Fire,
             Water,
-            Wall
+            Wall,
+            LevelComplete
         }
 
         /// <summary>
@@ -45,8 +47,15 @@ namespace Game
         /// <returns>AudioStream</returns>
         public void PlaySound(SoundEffect sound);
 
-        public void UpdateMusic();
+        /// <summary>
+        /// <param>Updates Music Stream buffer and starts to play if it isn't being played</param>
+        /// </summary>
+        /// <param name="song"> If no music is specified just keeps playing the one previously set</param>
+        public void UpdateMusic(IAudio.MusicEffect song = MusicEffect.None);
 
-        public bool IsMusicPlaying();
+        /// <summary>
+        /// <param>Pauses current Music Stream</param>
+        /// </summary>
+        public void PauseMusic();
     }
 }
