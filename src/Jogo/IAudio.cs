@@ -24,10 +24,9 @@ namespace Game
         public enum SoundEffect
         {
             Step,
-            Block,
+            PushBlock,
             Fire,
             Water,
-            Wood,
             Wall
         }
 
@@ -36,7 +35,7 @@ namespace Game
         /// </summary>
         /// <param name="music">Music</param>
         /// <returns>AudioStream</returns>
-        public Music GetMusic(MusicEffect music);
+        internal Music GetMusic(MusicEffect music);
 
         /// <summary>
         /// <param>Used to play Sound Effects</param>
@@ -47,5 +46,7 @@ namespace Game
         public void PlaySound(SoundEffect sound);
 
         public void UpdateMusic();
+
+        public bool IsMusicPlaying();
     }
 }
