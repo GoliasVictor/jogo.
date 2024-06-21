@@ -32,4 +32,13 @@ interface IEntity
 	/// <param name="level">The level scene where the collision occurred.</param>
 	/// <param name="player">The player entity involved in the collision.</param>
 	void Collide(LevelScene level, IEntity player) { }
+
+	/// <summary>
+	/// Attempts to push the entity in the specified direction.
+	/// </summary>
+	/// <param name="level"></param>
+	/// <param name="entity"></param>
+	/// <param name="direction"></param>
+	/// <returns>True if the entity was pushed, otherwise false.</returns>
+	bool GetPushed(LevelScene level, IEntity entity, GridVec2 direction) { return false; }
 }

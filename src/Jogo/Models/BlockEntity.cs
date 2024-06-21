@@ -31,33 +31,17 @@ class BlockEntity : IEntity
 		Raylib.DrawRectangle(x, y, GameSystem.TileSize, GameSystem.TileSize, Color.Violet);
 	}
 
-	public void Collide(LevelScene level, IEntity entity)
-	{
-		if (entity is PlayerEntity)
-		{
-			var idiff = Position.i - entity.Position.i;
-			var jdiff = Position.j - entity.Position.j;
-			GridVec2 delta = GridVec2.ZERO;
-			if (idiff != 0)
-			{
-				delta = new GridVec2(Math.Sign(idiff), 0);
-			}
-			if (jdiff != 0)
-			{
-				delta = new GridVec2(0, Math.Sign(jdiff));
-			}
-			var newPos = Position + delta;
-			if (newPos.i < 0 || newPos.i >= level.Map.Rows)
-				return;
-			if (newPos.j < 0 || newPos.j >= level.Map.Collumns)
-				return;
-			foreach (var another in level.Map[newPos])
-			{
-				another.Collide(level, this);
-			}
-			if (level.Map[newPos].Any(e => !e.CanOverlapWith(level, this)))
-				return;
-			Position = newPos;
+	public bool GetPushed(LevelScene level, IEntity entity, GridVec2 direction) {
+		if(direction.Equals(GridVec2.ZERO)) return false;
+		GridVec2 newPos = Position + direction;
+		if (newPos.i < 0 || newPos.i >= level.Map.Rows) return false;
+		if (newPos.j < 0 || newPos.j >= level.Map.Collumns) return false;
+		if (level.Map[newPos].Any(e => !e.CanOverlapWith(level, this)))
+			return false;
+		Position = newPos;
+		foreach(IEntity e in level.Map[newPos]) {
+			e.Collide(level, this);
 		}
+		return true;
 	}
 }
