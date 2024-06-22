@@ -117,7 +117,7 @@ Elemento/estado **exclusivo** do **jogador**, inicia os níveis neste estado.
 
 > É destruído ao entrar em contato com personagens dos outros elementos.
 
-# Objetos
+# Personagens
 
 ## Jogador
 
@@ -132,3 +132,11 @@ O jogador é a peça principal do jogo, a partir dele a maior parte das interaç
 ### Controle
 
 O jogador é controlado pelas teclas directionais do teclado, ao pressiona-las ele se move.
+
+## Inimigos
+
+![Os inimigos do jogo, pela ordem de elementos (Fogo, Água e Grama)](res/enemies-sheet.png)
+
+Inimigos seguem uma linha de movimento simples que pode ser vertical ou horizontal.
+
+> Andam na direção inicial até encontrar um objeto que não podem sobrepor. Neste momento, invertem a direção e repetem o comportamento.
