@@ -31,7 +31,8 @@ class PlayerMovementSystem : ISystem<LevelScene>
 			return;
 		foreach(IEntity entity in level.Map[newPos]) {
 			if(!entity.CanOverlapWith(level, player)) {
-				if(!entity.GetPushed(level, player, delta)) return;
+				if(!entity.GetPushed(level, player, delta))
+					return;
 			}
 		}
 		player.Position = newPos;
