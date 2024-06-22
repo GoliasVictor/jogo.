@@ -14,14 +14,14 @@ Este documento visa definir as especificações gerais para o desenvolvimento do
 
 Uma fase é composta de três tipos de objeto:
 - [Bloco](#bloco)
-- [Coletável](#coletável)
+- [Item](#item)
 - [Personagem](#personagem)
 
 Em todas as fases, o objetivo é chegar na bandeira. Ao colidir com ela, o jogador é enviado para a próxima fase.
 
 Para que os comportamentos de objeto aconteçam, o jogador deve pressionar o botão para se mover, quando acontece, é chamada a função de atualização dos objetos, nesta ordem:
 1. Jogador
-2. Coletáveis
+2. Itens
 3. Inimigos
 4. Blocos
 
@@ -34,9 +34,9 @@ Blocos são objetos com interações limitadas e específicas entre sí, com gat
   - Porta
   - Objetivo.
 
-## Coletável
+## Item
 
-Objetos coletáveis pelo jogador, apenas executam sua função de atualização quando colididos pelo jogador, após isso são destruídos. Nenhum bloco ou inimigo pode ser gerado ou se mover na posição deles.
+Objetos itens pelo jogador, apenas executam sua função de atualização quando colididos pelo jogador, após isso são destruídos. Nenhum bloco ou inimigo pode ser gerado ou se mover na posição deles.
 
 - Exemplos:
   - Chave
@@ -140,3 +140,17 @@ O jogador é controlado pelas teclas directionais do teclado, ao pressiona-las e
 Inimigos seguem uma linha de movimento simples que pode ser vertical ou horizontal.
 
 > Andam na direção inicial até encontrar um objeto que não podem sobrepor. Neste momento, invertem a direção e repetem o comportamento.
+
+# Itens
+
+## Itens Elementais
+
+![Na imagem, os itens que representam cada elemento: A vela (Fogo), O peixe (Água) e o trevo (Grama)](res/element-items.png)
+
+Os itens elementais podem ser coletados pelo jogador para mudar o elemento que pertence.
+
+## Chave
+
+![Na imagem, a chave](res/key.png)
+
+Quando coletada pelo jogador, a chave destrava (destroi) todas as portas da fase.
