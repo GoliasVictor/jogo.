@@ -154,3 +154,17 @@ Os itens elementais podem ser coletados pelo jogador para mudar o elemento que p
 ![Na imagem, a chave](res/key.png)
 
 Quando coletada pelo jogador, a chave destrava (destroi) todas as portas da fase.
+
+# Blocos não elementais
+
+## Parede
+
+![Na imagem, a parede](res/wall.png)
+
+Não possui nenhuma interação elemental, se mantém no mesmo lugar durante toda a fase. Não pode ser sobreposta por nenhum objeto.
+
+## Porta
+
+![Na image, a porta](res/door.png)
+
+Não possui nenhuma interação elemental, possui mesma descrição que a parede, porém quando a chave é coletada, todas as portas da fase são destravadas (destruídas).
