@@ -78,7 +78,10 @@ static class GameSystem {
     /// </summary>
     private static void UpdateObjects() {
         currentScene.Update();
+<<<<<<< HEAD
         audio.UpdateMusic();
+=======
+>>>>>>> main
     }
 
     /// <summary>
