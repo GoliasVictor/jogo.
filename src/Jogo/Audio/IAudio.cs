@@ -1,6 +1,6 @@
 ﻿using Raylib_cs;
 
-namespace Game
+namespace Jogo.Audio
 {
     /// <summary>
     /// Interface para carregar streams de audio Raylib
@@ -46,7 +46,7 @@ namespace Game
         /// <param>Updates Music Stream buffer and starts to play if it isn't being played</param>
         /// </summary>
         /// <param name="song"> If no music is specified just keeps playing the one previously set</param>
-        public void UpdateMusic(IAudio.MusicEffect song = MusicEffect.None);
+        public void UpdateMusic(MusicEffect song = MusicEffect.None);
 
         /// <summary>
         /// <param>Pauses current Music Stream</param>

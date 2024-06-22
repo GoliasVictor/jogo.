@@ -12,34 +12,34 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="MFXBoss.wav">
+    <None Update="Assets\Audio\mfx-boss.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="MFXGameEnd.wav">
+    <None Update="Assets\Audio\mfx-game-end.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="MFXPuzzle.wav">
+    <None Update="Assets\Audio\mfx-puzzle.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="MFXTitleScreen.wav">
+    <None Update="Assets\Audio\mfx-title-screen.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="SFXFire.wav">
+    <None Update="Assets\Audio\sfx-fire.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="SFXLevelComplete.wav">
+    <None Update="Assets\Audio\sfx-level-complete.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="SFXPushBlock.wav">
+    <None Update="Assets\Audio\sfx-push-block.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="SFXStep.wav">
+    <None Update="Assets\Audio\sfx-step.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="SFXWall.wav">
+    <None Update="Assets\Audio\sfx-wall.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="SFXWater.wav">
+    <None Update="Assets\Audio\sfx-water.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
