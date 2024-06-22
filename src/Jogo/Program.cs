@@ -1,4 +1,5 @@
 ﻿using Raylib_cs;
+using Jogo.Audio;
 
 
 /// <sumary>
@@ -13,6 +14,8 @@ static class GameSystem {
     private static Color ClearColor = Color.DarkGray;
     private static int targetFPS = 60;
     private static IScene currentScene;
+    private static Audio audio = new();
+
     static GameSystem(){
         var grid = new IEntity[17, 17];
         currentScene = new LevelScene([new PlayerMovementSystem()], new Map(grid,[
@@ -26,6 +29,7 @@ static class GameSystem {
 
         Raylib.SetTargetFPS(targetFPS);
         Raylib.InitAudioDevice();
+        audio.UpdateMusic(IAudio.MusicEffect.TitleScreen);
 
         while (!Raylib.WindowShouldClose())
         {
@@ -74,6 +78,7 @@ static class GameSystem {
     /// </summary>
     private static void UpdateObjects() {
         currentScene.Update();
+        audio.UpdateMusic();
     }
 
     /// <summary>
