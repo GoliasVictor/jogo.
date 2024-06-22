@@ -34,5 +34,12 @@ public class SpriteImporter {
         Raylib.UnloadImage(image);
         return texture;
     }
+
+    /// <summary>
+    /// Unloads sprite atlas from RAM, call before exiting the program.
+    /// </summary>
+    public static void UnloadAtlas() {
+        Raylib.UnloadImage(instance._atlas);
+    }
     
 }

@@ -33,6 +33,7 @@ static class GameSystem {
             Render();
         }
 
+        SpriteImporter.UnloadAtlas();
         Raylib.CloseAudioDevice();
         Raylib.CloseWindow();
     }
