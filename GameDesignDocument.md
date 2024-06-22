@@ -10,7 +10,9 @@ Este documento visa definir as especificações gerais para o desenvolvimento do
 - **Plataformas:** Windows, Linux
 - **Mecânica principal:** Troca de elementos para resolução de fases
 
-# Fase
+# Gameplay
+
+## Fase
 
 Uma fase é composta de três tipos de objeto:
 - [Bloco](#bloco)
@@ -25,7 +27,7 @@ Para que os comportamentos de objeto aconteçam, o jogador deve pressionar o bot
 3. Inimigos
 4. Blocos
 
-## Bloco
+### Bloco
 
 Blocos são objetos com interações limitadas e específicas entre sí, com gatilhos básicos para sua funcionalidade.
 
@@ -34,7 +36,7 @@ Blocos são objetos com interações limitadas e específicas entre sí, com gat
   - Porta
   - Objetivo.
 
-## Item
+### Item
 
 Objetos itens pelo jogador, apenas executam sua função de atualização quando colididos pelo jogador, após isso são destruídos. Nenhum bloco ou inimigo pode ser gerado ou se mover na posição deles.
 
@@ -43,17 +45,17 @@ Objetos itens pelo jogador, apenas executam sua função de atualização quando
   - Peixe
   - Vela
 
-## Personagem
+### Personagem
 
 Objetos que se movem pela fase vertical e/ou horizontalmente e possuem interações específicas com os elementos e seus blocos.
 
-# Elementos
+## Elementos
 
 ![Na imagem, os diferentes elementos coletaveis pelo jogador: no topo, Grama; à direita, Água; e à esquerda, Fogo.](res\element-relation.png)
 
 Os elementos possuem seguem a filosofia do clássico pedra-papel-tesoura, onde cada um deles vence um outro. Cada um deles possui uma mecânica única a ser seguida pelos personagens (Tanto jogador quanto inimigos). São Eles:
 
-## Grama
+### Grama
 
 ![Na imagem, o bloco de grama](res/grass-tile.png)
 
@@ -70,7 +72,7 @@ A mecânica principal deste elemento é o bloco de grama, que não pode ser empu
 
 > Quando um personagem de grama entra em contato com um personagem de água, o destrói.
 
-## Água
+### Água
 
 ![Na imagem, o bloco de água](res/water-tile.png)
 
@@ -87,7 +89,7 @@ A mecânica principal deste deste elemento é o bloco de água, que elimina pers
 
 > Quando um personagem de água entra em contato com um personagem de fogo, o destrói.
 
-## Fogo
+### Fogo
 
 ![Na imagem, o bloco de fogo](res/fire-tile.png)
 
@@ -106,7 +108,7 @@ A mecânica principal deste elemento é o bloco de fogo, que elimina personagens
 
 > Ao entrar em contato com um personagem de grama, o personagem de fogo elimina-o.
 
-## Neutro / Sem elemento
+### Neutro / Sem elemento
 
 ![Na imagem, o jogador de elemento neutro](res/player-neutral.png)
 
@@ -117,9 +119,9 @@ Elemento/estado **exclusivo** do **jogador**, inicia os níveis neste estado.
 
 > É destruído ao entrar em contato com personagens dos outros elementos.
 
-# Personagens
+## Personagens
 
-## Jogador
+### Jogador
 
 ![Estados elementais do jogador, em ordem: Fogo, Água, Grama e Neutro](res/player-sprites.png)
 
@@ -129,11 +131,11 @@ O jogador é a peça principal do jogo, a partir dele a maior parte das interaç
 
 > Todas os comportamentos de entidades ocorrem apenas quando o jogador se move, com ele tendo prioridade máxima no movimento.
 
-### Controle
+#### Controle
 
 O jogador é controlado pelas teclas directionais do teclado, ao pressiona-las ele se move.
 
-## Inimigos
+### Inimigos
 
 ![Os inimigos do jogo, pela ordem de elementos (Fogo, Água e Grama)](res/enemies-sheet.png)
 
@@ -141,29 +143,29 @@ Inimigos seguem uma linha de movimento simples que pode ser vertical ou horizont
 
 > Andam na direção inicial até encontrar um objeto que não podem sobrepor. Neste momento, invertem a direção e repetem o comportamento.
 
-# Itens
+## Itens
 
-## Itens Elementais
+### Itens Elementais
 
 ![Na imagem, os itens que representam cada elemento: A vela (Fogo), O peixe (Água) e o trevo (Grama)](res/element-items.png)
 
 Os itens elementais podem ser coletados pelo jogador para mudar o elemento que pertence.
 
-## Chave
+### Chave
 
 ![Na imagem, a chave](res/key.png)
 
 Quando coletada pelo jogador, a chave destrava (destroi) todas as portas da fase.
 
-# Blocos não elementais
+## Blocos não elementais
 
-## Parede
+### Parede
 
 ![Na imagem, a parede](res/wall.png)
 
 Não possui nenhuma interação elemental, se mantém no mesmo lugar durante toda a fase. Não pode ser sobreposta por nenhum objeto.
 
-## Porta
+### Porta
 
 ![Na image, a porta](res/door.png)
 
