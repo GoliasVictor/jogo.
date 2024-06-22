@@ -1,11 +1,11 @@
 ﻿using Raylib_cs;
 
-namespace Jogo.Audio
+namespace Jogo.Systems
 {
     /// <summary>
     /// Interface para carregar streams de audio Raylib
     /// </summary>
-    internal interface IAudio
+    internal interface IAudio : ISystem
     {
         /// <summary>
         /// Enum of different music files
@@ -43,10 +43,15 @@ namespace Jogo.Audio
         public void PlaySound(SoundEffect sound);
 
         /// <summary>
+        /// <param>Updates Music Stream buffer</param>
+        /// </summary>
+        public void Update();
+
+        /// <summary>
         /// <param>Updates Music Stream buffer and starts to play if it isn't being played</param>
         /// </summary>
         /// <param name="song"> If no music is specified just keeps playing the one previously set</param>
-        public void UpdateMusic(MusicEffect song = MusicEffect.None);
+        public void PlayMusic(MusicEffect song);
 
         /// <summary>
         /// <param>Pauses current Music Stream</param>

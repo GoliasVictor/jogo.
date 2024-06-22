@@ -1,8 +1,8 @@
 ﻿using Raylib_cs;
-using static Jogo.Audio.IAudio;
+using static Jogo.Systems.IAudio;
 
 /// TODO: Adjust Volumes according to sound
-namespace Jogo.Audio
+namespace Jogo.Systems
 {
     internal class Audio : IAudio
     {
@@ -12,7 +12,7 @@ namespace Jogo.Audio
         private Music currentMusic;
 
         /// <summary>
-        /// Current sound stream being palyed
+        /// Current sound stream being played
         /// </summary>
         private Sound currentSound;
 
@@ -50,7 +50,7 @@ namespace Jogo.Audio
                     break;
             };
             Raylib.UnloadSound(currentSound);
-            currentSound = Raylib.LoadSound(path+SoundFileName);
+            currentSound = Raylib.LoadSound(path + SoundFileName);
             Raylib.PlaySound(currentSound);
         }
 
@@ -84,36 +84,37 @@ namespace Jogo.Audio
             return Raylib.LoadMusicStream(path + MusicFileName);
         }
 
-        public void UpdateMusic(MusicEffect song = MusicEffect.None)
+        public void Update()
         {
-            if (song != MusicEffect.None)
-            {
-                if (Raylib.IsMusicStreamPlaying(currentMusic))
-                    Raylib.UnloadMusicStream(currentMusic);
-                currentMusic = GetMusic(song);
-                isPaused = false;
-            }
-            if (!Raylib.IsMusicStreamPlaying(currentMusic) && !isPaused)
-                Raylib.PlayMusicStream(currentMusic);
-            Raylib.UpdateMusicStream(currentMusic);
+            Raylib.UpdateMusicStream(this.currentMusic);
+        }
+
+        public void PlayMusic(MusicEffect song)
+        {
+            if (Raylib.IsMusicStreamPlaying(this.currentMusic))
+                Raylib.UnloadMusicStream(this.currentMusic);
+            this.currentMusic = GetMusic(song);
+            if (!Raylib.IsMusicStreamPlaying(this.currentMusic))
+                Raylib.PlayMusicStream(this.currentMusic);
+            this.Update();
         }
 
         public void PauseMusic()
         {
             if (Raylib.IsMusicStreamPlaying(currentMusic))
                 Raylib.PauseMusicStream(currentMusic);
-            isPaused = true;
+            this.isPaused = true;
         }
         public void ResumeMusic()
         {
-            isPaused = false;
+            this.isPaused = false;
         }
 
         public void StopMusic()
         {
             if (Raylib.IsMusicStreamPlaying(currentMusic))
                 Raylib.StopMusicStream(currentMusic);
-            isPaused = true;
+            this.isPaused = true;
         }
 
     }

@@ -1,5 +1,5 @@
 ﻿using Raylib_cs;
-using Jogo.Audio;
+using Jogo.Systems;
 
 
 /// <sumary>
@@ -29,7 +29,7 @@ static class GameSystem {
 
         Raylib.SetTargetFPS(targetFPS);
         Raylib.InitAudioDevice();
-        audio.UpdateMusic(IAudio.MusicEffect.TitleScreen);
+        audio.PlayMusic(IAudio.MusicEffect.TitleScreen);
 
         while (!Raylib.WindowShouldClose())
         {
@@ -78,7 +78,7 @@ static class GameSystem {
     /// </summary>
     private static void UpdateObjects() {
         currentScene.Update();
-        audio.UpdateMusic();
+        audio.Update();
     }
 
     /// <summary>
