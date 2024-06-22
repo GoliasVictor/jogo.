@@ -32,12 +32,7 @@ namespace Game
             LevelComplete
         }
 
-        /// <summary>
-        /// <param>Used to get AudioStream from desired music</param>
-        /// </summary>
-        /// <param name="music">Music</param>
-        /// <returns>AudioStream</returns>
-        internal Music GetMusic(MusicEffect music);
+        // public Music GetMusic(MusicEffect music);
 
         /// <summary>
         /// <param>Used to play Sound Effects</param>
@@ -57,5 +52,15 @@ namespace Game
         /// <param>Pauses current Music Stream</param>
         /// </summary>
         public void PauseMusic();
+
+        /// <summary>
+        /// <param>Unpauses current Music Stream</param>
+        /// </summary>
+        public void ResumeMusic();
+
+        /// <summary>
+        /// <param>Stops music</param>
+        /// </summary>
+        public void StopMusic();
     }
 }
