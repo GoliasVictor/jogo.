@@ -170,3 +170,31 @@ Não possui nenhuma interação elemental, se mantém no mesmo lugar durante tod
 ![Na image, a porta](res/door.png)
 
 Não possui nenhuma interação elemental, possui mesma descrição que a parede, porém quando a chave é coletada, todas as portas da fase são destravadas (destruídas).
+
+# Recursos
+
+Aqui estão listados os recursos necessários para o jogo.
+
+## Sons
+
+- [ ] Jogador anda
+- [ ] Personagem eliminado
+- [ ] Fogo se espalha
+- [ ] Empurrar caixa
+- [ ] Troca de elemento
+  - [ ] Fogo
+  - [ ] Água
+  - [ ] Grama
+- [ ] Chave coletada
+
+## Música
+
+- [ ] Música para níveis
+- [ ] Música para menu
+  
+## Telas
+
+- [ ] Menu principal
+  - Precisa ter opção de carregar save ou iniciar novo jogo 
+- [ ] Fases
+  - Geradas via arquivo de texto
