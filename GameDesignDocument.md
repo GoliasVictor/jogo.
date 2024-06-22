@@ -81,7 +81,7 @@ Objetos que se movem pela fase vertical e/ou horizontalmente e possuem interaç�
 
 ## Elementos
 
-![Na imagem, os diferentes elementos coletaveis pelo jogador: no topo, Grama; à direita, Água; e à esquerda, Fogo.](res\element-relation.png)
+![Na imagem, os diferentes elementos coletaveis pelo jogador: no topo, Grama; à direita, Água; e à esquerda, Fogo.](res/element-relation.png)
 
 Os elementos possuem seguem a filosofia do clássico pedra-papel-tesoura, onde cada um deles vence um outro. Cada um deles possui uma mecânica única a ser seguida pelos personagens (Tanto jogador quanto inimigos). São Eles:
 
