@@ -10,6 +10,36 @@ Este documento visa definir as especificações gerais para o desenvolvimento do
 - **Plataformas:** Windows, Linux
 - **Mecânica principal:** Troca de elementos para resolução de fases
 
+# Conteúdos:
+- [Elements - Game Design Document](#elements---game-design-document)
+  - [Definição](#definição)
+- [Conteúdos:](#conteúdos)
+- [Gameplay](#gameplay)
+  - [Fase](#fase)
+    - [Bloco](#bloco)
+    - [Item](#item)
+    - [Personagem](#personagem)
+  - [Elementos](#elementos)
+    - [Grama](#grama)
+    - [Água](#água)
+    - [Fogo](#fogo)
+    - [Neutro / Sem elemento](#neutro--sem-elemento)
+  - [Personagens](#personagens)
+    - [Jogador](#jogador)
+      - [Controle](#controle)
+    - [Inimigos](#inimigos)
+  - [Itens](#itens)
+    - [Itens Elementais](#itens-elementais)
+    - [Chave](#chave)
+  - [Blocos não elementais](#blocos-não-elementais)
+    - [Parede](#parede)
+    - [Porta](#porta)
+- [Recursos](#recursos)
+  - [Sons](#sons)
+  - [Música](#música)
+  - [Telas](#telas)
+
+
 # Gameplay
 
 ## Fase
