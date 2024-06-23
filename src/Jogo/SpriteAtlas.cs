@@ -17,15 +17,14 @@ public class SpriteAtlas {
     /// <param name="columns">Number of columns of the atlas.</param>
     public static void SetAtlasSize(uint rows, uint columns) {
         Texture2D[, ] newArray = new Texture2D[rows, columns];
-        /*for(int i = 0; i < Math.Min(rows, instance._rows); i++){
+        for(int i = 0; i < Math.Min(rows, instance._rows); i++){
             for(int j = 0; j < Math.Min(columns, instance._columns); j++){
                 newArray[i, j] = instance._sprites[i, j];
             }
-        }*/
+        }
         instance._sprites = newArray;
         instance._rows = rows;
         instance._columns = columns;
-        Console.WriteLine($"{rows}, {columns}");
     }
 
     /// <summary>
