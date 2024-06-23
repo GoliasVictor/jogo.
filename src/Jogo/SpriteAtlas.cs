@@ -4,15 +4,7 @@ using Raylib_cs;
 /// Responsible for storing all of the Sprites after they have been imported
 /// </summary>
 public class SpriteAtlas {
-    private static SpriteAtlas? _instance = null;
-    private static SpriteAtlas instance {
-        get{
-            if(_instance == null) {
-                _instance = new();
-            }
-            return _instance;
-        }
-    }
+    private static SpriteAtlas instance = new();
 
     private Texture2D[, ] _sprites = new Texture2D[0, 0];
     private uint _rows = 0;
