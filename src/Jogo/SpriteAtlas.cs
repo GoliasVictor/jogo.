@@ -79,4 +79,15 @@ public static class SpriteAtlas {
             throw new IndexOutOfRangeException(exceptionDescription, e);
         }
     }
+
+    /// <summary>
+    /// Draws the desired sprite slice in the desired position.
+    /// </summary>
+    /// <param name="i">Row of the sprite.</param>
+    /// <param name="j">Column of the sprite.</param>
+    /// <param name="x">Render X coordinate.</param>
+    /// <param name="y">Render Y coordinate.</param>
+    public static void DrawSprite(int i, int j, int x, int y) {
+        Raylib.DrawTexture(GetSprite(i, j), x, y, Color.White);
+    }
 }
