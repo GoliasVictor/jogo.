@@ -12,7 +12,11 @@ using Raylib_cs;
 /// <param name="map">The map associated with the level scene.</param>
 class LevelScene(ISystem<LevelScene>[] systems, Map map) : IScene
 {
+    private const int blockMargin = 2;
+
     ISystem<LevelScene>[] systems = systems;
+
+    private Camera2D _camera = new();
 
     /// <summary>
     /// Gets the map associated with the level scene.
@@ -60,15 +64,15 @@ class LevelScene(ISystem<LevelScene>[] systems, Map map) : IScene
     /// </summary>
     public void Render()
     {
-        int start_x = GameSystem.DefaultWindowWidth / 2 - Map.Columns * GameSystem.TileSize / 2;
-        int start_y = GameSystem.DefaultWindowHeight / 2 - Map.Rows * GameSystem.TileSize / 2;
-        RenderFloor(start_x, start_y);
-        foreach (var entity in Map.Entities)
-        {
-            var x = start_x + entity.Position.j * GameSystem.TileSize;
-            var y = start_y + entity.Position.i * GameSystem.TileSize;
-            entity.Render(this, x, y);
-        }
+        Raylib.BeginMode2D(_camera);
+            RenderFloor(0, 0);
+            foreach (var entity in Map.Entities)
+            {
+                var x = entity.Position.j * GameSystem.TileSize;
+                var y = entity.Position.i * GameSystem.TileSize;
+                entity.Render(this, x, y);
+            }
+        Raylib.EndMode2D();
     }
     /// <summary>
     /// Destroys the specified entity. If the entity is a player, it calls the KillPlayer method on the player entity. 
@@ -83,6 +87,14 @@ class LevelScene(ISystem<LevelScene>[] systems, Map map) : IScene
             return;
         }
         this.Map.Entities.Remove(Entity);
+    }
+
+    /// <summary>
+    /// Updates the level's render size and applies zoom to match.
+    /// </summary>
+    public void UpdateViewSize() {
+        _camera.Target = new Vector2(0f, -blockMargin * GameSystem.TileSize);
+        _camera.Zoom = Raylib.GetScreenWidth() / (Map.Rows + blockMargin * 2);
     }
 
 }
