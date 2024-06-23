@@ -32,6 +32,8 @@ struct GridVec2(int i, int j)
 	/// Subtracts one vector from another.
 	/// </summary>
 	public static GridVec2 operator -(GridVec2 v, GridVec2 u) => new(v.i - u.i, v.j - u.j);
+	public static bool operator ==(GridVec2 v, GridVec2 u) =>  v.i == u.i && v.j == u.j;
+	public static bool operator !=(GridVec2 v, GridVec2 u) =>  !(v == u);
 
 	/// <summary>
 	/// Represents a vector pointing upwards.

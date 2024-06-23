@@ -23,7 +23,7 @@ static class GameSystem {
 
     private static LevelScene MockLevel()
     {
-        var currentScene = new LevelScene([new PlayerMovementSystem(), new ItemCollectSystem(), new CollisionSystem()], new Map(10, 10, [
+        var currentScene = new LevelScene([new TickUpdateSystem(), new CollisionSystem(), new ItemCollectionSystem()], new Map(10, 10, [
             new Wall(new GridVec2(0,0)),
             new Wall(new GridVec2(1,0)),
             new Wall(new GridVec2(2,0)),
@@ -76,9 +76,9 @@ static class GameSystem {
             new Wall(new GridVec2(6,8)),
 
             new DoorEntity(new GridVec2(8,5)),
-            new BoxEntity(new GridVec2(7,2)),
+            new Box(new GridVec2(7,2)),
 
-            new BoxEntity(new GridVec2(5,5)),
+            new Box(new GridVec2(5,5)),
 
             new FireEntity(new GridVec2(5,6)),
             new FireEntity(new GridVec2(5,7)),
@@ -98,7 +98,7 @@ static class GameSystem {
             new Enemy(new GridVec2(3,4), Element.Leaf, false),
             new Enemy(new GridVec2(6,3), Element.Water, true),
             new Enemy(new GridVec2(2,6), Element.Fire, true),
-            new PlayerEntity(new GridVec2(4,3)),
+            new Player(new GridVec2(4,3)),
         ]));
         return currentScene;
     }

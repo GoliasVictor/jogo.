@@ -9,7 +9,10 @@ interface IEntity
 	/// Gets or sets the position of the entity on the grid.
 	/// </summary>
 	GridVec2 Position { get; set; }
-
+	/// <summary>
+	/// Gets or sets the position of the entity on the grid.
+	/// </summary>
+	Layer Layer { get; }
 	/// <summary>
 	/// Renders the entity on the specified level scene at the given coordinates.
 	/// </summary>
@@ -24,7 +27,7 @@ interface IEntity
 	/// <param name="level">The level scene to check for overlapping entities.</param>
 	/// <param name="entity">The entity to check for overlapping.</param>
 	/// <returns>True if the entity can be overlapped by the specified entity, otherwise false.</returns>
-	bool CanOverlapWith(LevelScene level, IEntity entity);
+	public bool CanOverlapWith(LevelScene level, IEntity entity);
 
 	/// <summary>
 	/// Handles the collision between the entity and the player on the specified level scene.

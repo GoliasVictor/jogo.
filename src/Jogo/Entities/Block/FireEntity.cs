@@ -7,38 +7,43 @@ using Raylib_cs;
 class FireEntity(GridVec2 position) : IEntity, IElemental
 {
     public GridVec2 Position { get; set; } = position;
-	public Element Element => Element.Fire; 
+    public Layer Layer => Layer.Block;
+    public Element Element => Element.Fire;
 
     public bool CanOverlapWith(LevelScene level, IEntity entity)
-	{
-		return entity is not FireEntity;
+    {
+        return entity.Layer >= Layer && entity is not FireEntity;
+    }
 
-	}
+    public void Render(LevelScene level, int x, int y)
+    {
 
-	public void Render(LevelScene level, int x, int y)
-	{
-
-		Raylib.DrawRectangle(x, y, GameSystem.TileSize, GameSystem.TileSize, Color.Red);
+        Raylib.DrawRectangle(x, y, GameSystem.TileSize, GameSystem.TileSize, Color.Red);
         Raylib.DrawRectangle(x + 6, y + 6, GameSystem.TileSize - 12, GameSystem.TileSize - 12, Color.Gray);
-	}
- 
-	public void TickUpdate(LevelScene level) {
-		GridVec2[] deltas = [new(-1, 0), new(1, 0), new(0, -1), new(0, 1)];
-		foreach (var delta in deltas){
-			var newpos = delta + this.Position;
-			var newEntity = new FireEntity(newpos);
-			var entities =  level.Map[newpos].ToList();
-			var added = false;
-			foreach(var entity in entities.OfType<IElemental>()){
-				if (((IElemental)this).WinAgainst(entity)){
-					level.Map.Entities.Add(newEntity);
-					added = true;
-				}
-			}
-			if (!added && level.Map[newpos].All(e => e.CanOverlapWith(level, newEntity))){
-				level.Map.Entities.Insert(0, newEntity);
-			}
-		} 
-	}
-	
+    }
+
+    public void TickUpdate(LevelScene level)
+    {
+        GridVec2[] deltas = [new(-1, 0), new(1, 0), new(0, -1), new(0, 1)];
+        foreach (var delta in deltas)
+        {
+            var newpos = delta + this.Position;
+            var newEntity = new FireEntity(newpos);
+            var entities = level.Map[newpos].ToList();
+            var added = false;
+            foreach (var entity in entities.OfType<IElemental>())
+            {
+                if (((IElemental)this).WinAgainst(entity))
+                {
+                    level.Map.Entities.Add(newEntity);
+                    added = true;
+                }
+            }
+            if (!added && level.Map[newpos].All(e => e.CanOverlapWith(level, newEntity)))
+            {
+                level.Map.Entities.Insert(0, newEntity);
+            }
+        }
+    }
+
 }

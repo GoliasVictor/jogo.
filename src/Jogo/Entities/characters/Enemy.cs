@@ -7,6 +7,8 @@ using Raylib_cs;
 class Enemy : IEntity, IElemental
 {
     public GridVec2 Position { get; set; }
+    public Layer Layer => Layer.Character;
+
     public Element Element { get; set; }
     private GridVec2 direction;
 
@@ -23,7 +25,7 @@ class Enemy : IEntity, IElemental
 
     public bool CanOverlapWith(LevelScene level, IEntity entity)
     {
-        return entity is PlayerEntity;
+        return entity.Layer > this.Layer;
     }
     public void Render(LevelScene level, int x, int y)
     {

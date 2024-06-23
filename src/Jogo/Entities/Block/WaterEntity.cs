@@ -8,17 +8,18 @@ using Raylib_cs;
 class WaterEntity(GridVec2 position) : IEntity, IElemental
 {
     public GridVec2 Position { get; set; } = position;
-	public Element Element => Element.Water; 
+    public Layer Layer => Layer.Block;
+    public Element Element => Element.Water;
 
 
     public bool CanOverlapWith(LevelScene level, IEntity entity)
-	{
-		return true ;
-	}
+    {
+        return true;
+    }
 
-	public void Render(LevelScene level, int x, int y)
-	{
+    public void Render(LevelScene level, int x, int y)
+    {
         Raylib.DrawRectangle(x, y, GameSystem.TileSize, GameSystem.TileSize, Color.SkyBlue);
-	}
+    }
 
 }

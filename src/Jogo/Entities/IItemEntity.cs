@@ -7,5 +7,5 @@ interface IItem : IEntity{
 	/// </summary>
 	/// <param name="level">The level scene.</param>
 	/// <param name="player">The player entity.</param>
-	void Utilize(LevelScene level, PlayerEntity player);
+	void Utilize(LevelScene level, Player player);
 }

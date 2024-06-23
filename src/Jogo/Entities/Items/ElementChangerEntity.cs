@@ -6,36 +6,35 @@ using Raylib_cs;
 /// </summary>
 /// <param name="position">The position of the element changer.</param>
 /// <param name="element">The element that the player will have after picking up the element changer.</param>
-class ElementChangerEntity(GridVec2 position, Element element) : IItem {
+class ElementChangerEntity(GridVec2 position, Element element) : IItem
+{
     public Element Element { get; init; } = element;
-
     public GridVec2 Position { get; set; } = position;
+    public Layer Layer => Layer.Item;
 
     public bool CanOverlapWith(LevelScene level, IEntity entity)
     {
-		return entity is PlayerEntity;
+        return entity is Player;
     }
 
-	public void Collide(LevelScene level, IEntity entity) { 
 
-	}
-	
 
     public void Render(LevelScene level, int x, int y)
     {
-        
-        Color color = this.Element switch {
+
+        Color color = this.Element switch
+        {
             Element.Neutral => Color.White,
             Element.Fire => Color.Red,
             Element.Leaf => Color.Green,
             Element.Water => Color.Blue,
             _ => Color.White
         };
-        
+
         Raylib.DrawRectangle(x + 8, y + 8, GameSystem.TileSize - 16, GameSystem.TileSize - 16, color);
     }
 
-    public void Utilize(LevelScene level, PlayerEntity player)
+    public void Utilize(LevelScene level, Player player)
     {
         player.Element = this.Element;
     }

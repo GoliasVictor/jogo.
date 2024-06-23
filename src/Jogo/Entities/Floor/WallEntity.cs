@@ -7,10 +7,11 @@ using Raylib_cs;
 class Wall(GridVec2 position) : IEntity
 {
     public GridVec2 Position { get; set; } = position;
+    public Layer Layer => Layer.Floor;
 
     public bool CanOverlapWith(LevelScene level, IEntity entity)
     {
-		  return false;
+        return false;
     }
     public void Render(LevelScene level, int x, int y)
     {

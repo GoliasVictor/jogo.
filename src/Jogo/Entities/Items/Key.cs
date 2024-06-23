@@ -6,6 +6,7 @@ using Raylib_cs;
 /// </summary>
 class Key(GridVec2 position) : IItem
 {
+	public Layer Layer => Layer.Item;
 
 	/// <summary>
 	/// Gets or sets the position of the key.
@@ -14,7 +15,7 @@ class Key(GridVec2 position) : IItem
 
 	public bool CanOverlapWith(LevelScene level, IEntity entity)
 	{
-		return entity is PlayerEntity;
+		return entity is Player;
 	}
 
 
@@ -28,7 +29,7 @@ class Key(GridVec2 position) : IItem
 	/// </summary>
 	/// <param name="level">The level scene.</param>
 	/// <param name="player">The player entity.</param>
-	public void Utilize(LevelScene level, PlayerEntity player)
+	public void Utilize(LevelScene level, Player player)
 	{
 		level.Map.Entities.RemoveAll(e => e is DoorEntity);
 	}
