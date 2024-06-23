@@ -12,7 +12,7 @@ interface IElemental : IEntity {
 	/// </summary>
 	/// <param name="entity">The entity to compare against.</param>
 	/// <returns>True if the current entity wins, otherwise false.</returns>
-	public bool WinAgainst(IElemental entity){
-		return this.Element.WinAgainst(entity.Element);
+	public bool WinsAgainst(IElemental entity){
+		return this.Element.WinsAgainst(entity.Element);
 	}
 }

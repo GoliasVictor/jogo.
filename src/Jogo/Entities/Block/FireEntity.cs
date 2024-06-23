@@ -33,7 +33,7 @@ class FireEntity(GridVec2 position) : IEntity, IElemental
             var added = false;
             foreach (var entity in entities.OfType<IElemental>())
             {
-                if (((IElemental)this).WinAgainst(entity))
+                if (((IElemental)this).WinsAgainst(entity))
                 {
                     level.Map.Entities.Add(newEntity);
                     added = true;

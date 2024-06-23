@@ -22,7 +22,7 @@ static class ElementExtension
     /// <param name="A">The current element.</param>
     /// <param name="B">The element to compare against.</param>
     /// <returns>True if the current element wins against the specified element, otherwise false.</returns>
-    public static bool WinAgainst(this Element A, Element B)
+    public static bool WinsAgainst(this Element A, Element B)
     {
         return (A, B) switch
         {

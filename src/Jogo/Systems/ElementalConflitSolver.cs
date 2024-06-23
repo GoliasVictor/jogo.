@@ -19,12 +19,12 @@ static class ElementalConflitSolver
 		if (player?.Element == Element.Neutral)
 			level.DestroyEntity(player);
 
-		if (A.Element.WinAgainst(B.Element))
+		if (A.Element.WinsAgainst(B.Element))
 		{
 			level.DestroyEntity(B);
 			return;
 		}
-		if (B.Element.WinAgainst(A.Element))
+		if (B.Element.WinsAgainst(A.Element))
 		{
 			level.DestroyEntity(A);
 		}
