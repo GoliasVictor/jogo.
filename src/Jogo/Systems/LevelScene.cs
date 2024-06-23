@@ -12,11 +12,11 @@ using Raylib_cs;
 /// <param name="map">The map associated with the level scene.</param>
 class LevelScene(ISystem<LevelScene>[] systems, Map map) : IScene
 {
-    private const int blockMargin = 2;
+    private const int blockMargin = 1;
 
     ISystem<LevelScene>[] systems = systems;
 
-    private Camera2D _camera = new();
+    private Camera2D _camera = GenerateCamera(map);
 
     /// <summary>
     /// Gets the map associated with the level scene.
@@ -89,12 +89,26 @@ class LevelScene(ISystem<LevelScene>[] systems, Map map) : IScene
         this.Map.Entities.Remove(Entity);
     }
 
+    public void ViewSizeChanged() {
+        _camera = GenerateCamera(Map);
+    }
+
     /// <summary>
-    /// Updates the level's render size and applies zoom to match.
+    /// Creates a new Camera for the scene.
     /// </summary>
-    public void UpdateViewSize() {
-        _camera.Target = new Vector2(0f, -blockMargin * GameSystem.TileSize);
-        _camera.Zoom = Raylib.GetScreenWidth() / (Map.Rows + blockMargin * 2);
+    private static Camera2D GenerateCamera(Map map) {
+        float scaleFactor = (float)Raylib.GetScreenHeight() / ((map.Rows + blockMargin * 2) * GameSystem.TileSize);
+        Vector2 position = new();
+        position.X = Raylib.GetScreenWidth() / (scaleFactor) - map.Rows * GameSystem.TileSize;
+        position.X *= -0.5f;
+        position.Y = -blockMargin * GameSystem.TileSize;
+        
+        return new() {
+            Target = position,
+            Zoom = scaleFactor,
+            Rotation = 0f,
+            Offset = Vector2.Zero
+        };
     }
 
 }

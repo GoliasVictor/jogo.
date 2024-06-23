@@ -10,6 +10,11 @@ interface IScene<T> : ISystem<T>
     /// </summary>
     /// <param name="context">The context used for rendering.</param>
     void Render(T context);
+
+    /// <summary>
+    /// Called when the game's window view has been resized in order to change rendering.
+    /// </summary>
+    void ViewSizeChanged() {}
 }
 
 /// <summary>
@@ -21,4 +26,9 @@ interface IScene : ISystem
     /// Renders the scene.
     /// </summary>
     void Render();
+
+    /// <summary>
+    /// Called when the game's window view has been resized in order to change rendering.
+    /// </summary>
+    void ViewSizeChanged() {}
 }

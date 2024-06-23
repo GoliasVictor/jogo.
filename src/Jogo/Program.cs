@@ -105,6 +105,8 @@ static class GameSystem {
     static void Main() {
         Raylib.InitWindow(DefaultWindowWidth, DefaultWindowHeight, DefaultWindowName);
 
+        currentScene.ViewSizeChanged();
+
         Raylib.SetTargetFPS(targetFPS);
         Raylib.InitAudioDevice();
         audio.PlayMusic(IAudio.MusicEffect.TitleScreen);
