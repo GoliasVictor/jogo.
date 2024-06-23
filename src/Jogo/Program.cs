@@ -1,4 +1,5 @@
 ﻿using Raylib_cs;
+using Jogo.Systems;
 
 
 /// <sumary>
@@ -13,6 +14,8 @@ static class GameSystem {
     private static Color ClearColor = Color.DarkGray;
     private static int targetFPS = 60;
     private static IScene currentScene;
+    private static Audio audio = new();
+
     static GameSystem()
     {
         currentScene = MockLevel();
@@ -105,6 +108,7 @@ static class GameSystem {
 
         Raylib.SetTargetFPS(targetFPS);
         Raylib.InitAudioDevice();
+        audio.PlayMusic(IAudio.MusicEffect.TitleScreen);
 
         while (!Raylib.WindowShouldClose())
         {
@@ -156,6 +160,7 @@ static class GameSystem {
     /// </summary>
     private static void UpdateObjects() {
         currentScene.Update();
+        audio.Update();
     }
 
     /// <summary>
