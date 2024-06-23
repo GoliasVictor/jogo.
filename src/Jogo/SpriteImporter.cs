@@ -16,11 +16,12 @@ public class SpriteImporter : IDisposable {
     private Image _atlasImage;
 
     /// <summary>
-    /// Imports all Atlas tiles into SpriteAtlas, calledd when game starts.
+    /// Creates new SpriteAtlas and loads all sprites into it.
     /// </summary>
     public static void ImportAtlas() {
+        SpriteAtlas _ = new SpriteAtlas(_AtlasRows, _AtlasColumns);
+        
         instance._atlasImage = Raylib.LoadImage(_AtlasPath);
-        SpriteAtlas.SetAtlasSize(_AtlasRows, _AtlasColumns);
         for(uint i = 0; i < _AtlasRows; i++) {
             for(uint j = 0; j < _AtlasColumns; j++) {
                 LoadSprite(i, j);

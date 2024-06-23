@@ -4,27 +4,22 @@ using Raylib_cs;
 /// Responsible for storing all of the Sprites after they have been imported
 /// </summary>
 public class SpriteAtlas {
-    private static SpriteAtlas instance = new();
+    private static SpriteAtlas instance = new(0, 0);
 
-    private Texture2D[, ] _sprites = new Texture2D[0, 0];
-    private uint _rows = 0;
-    private uint _columns = 0;
+    private Texture2D[, ] _sprites;
+    private readonly uint _rows;
+    private readonly uint _columns;
 
     /// <summary>
-    /// Sets current instances sprite array size, mantains old values if possible.
+    /// Creates new SpriteAtlas and sets instance to it.
     /// </summary>
-    /// <param name="rows">Number of rows of the atlas.</param>
-    /// <param name="columns">Number of columns of the atlas.</param>
-    public static void SetAtlasSize(uint rows, uint columns) {
-        Texture2D[, ] newArray = new Texture2D[rows, columns];
-        for(int i = 0; i < Math.Min(rows, instance._rows); i++){
-            for(int j = 0; j < Math.Min(columns, instance._columns); j++){
-                newArray[i, j] = instance._sprites[i, j];
-            }
-        }
-        instance._sprites = newArray;
-        instance._rows = rows;
-        instance._columns = columns;
+    /// <param name="rows">Number of rows of the Atlas.</param>
+    /// <param name="columns">Number of columns of the Atlas.</param>
+    public SpriteAtlas(uint rows, uint columns) {
+        _rows = rows;
+        _columns = columns;
+        _sprites = new Texture2D[rows, columns];
+        instance = this;
     }
 
     /// <summary>
