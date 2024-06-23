@@ -1,3 +1,4 @@
+using System.Reflection;
 using Raylib_cs;
 
 /// <summary>
@@ -6,8 +7,8 @@ using Raylib_cs;
 public static class SpriteAtlas {
 
     private const string SourcePath = @"Assets/sprite-atlas.png";
-    private const uint Columns = 4;
-    private const uint Rows = 5;
+    private const uint Columns = 10;
+    private const uint Rows = 10;
     
     public const uint SpriteWidth = 16;
     public const uint SpriteHeight = 16;
@@ -15,14 +16,14 @@ public static class SpriteAtlas {
     private static Texture2D[, ] _sprites = new Texture2D[Rows, Columns];
 
     /// <summary>
-    /// Loads all sprites into atlas.
+    /// Loads all sprite slices from the static Sprite class into atlas.
     /// </summary>
     public static void LoadAtlas() {
         Image fullImage = Raylib.LoadImage(SourcePath);
-        for(uint i = 0; i < Rows; i++) {
-            for(uint j = 0; j < Columns; j++) {
-                LoadSprite(fullImage, i, j);
-            }
+        foreach(FieldInfo fi in typeof(Sprite).GetFields(BindingFlags.Static | BindingFlags.Public)) {
+            var value = fi.GetValue(null);
+            if(value == null) continue;
+            LoadSprite(fullImage, (SpriteSlice) value);
         }
         Raylib.UnloadImage(fullImage);
     }
@@ -31,27 +32,14 @@ public static class SpriteAtlas {
     /// Method <c>LoadSprite</c> is responsible for retrieving the desired slice and adding it to the Atlas.
     /// </summary>
     /// <param name="atlasImage">The entire atlas source.</param>
-    /// <param name="i">Sprite row</param>
-    /// <param name="j">Sprite column</param>
+    /// <param name="slice">Sprite slice to be loaded.</param>
     /// <returns>Texture2D slice of the atlas in the desired position.</returns>
-    private static void LoadSprite(Image atlasImage, uint i, uint j) {
-        Rectangle imageBounds = new Rectangle(j * SpriteWidth, i * SpriteHeight, SpriteWidth, SpriteHeight);
+    private static void LoadSprite(Image atlasImage, SpriteSlice slice) {
+        Rectangle imageBounds = new Rectangle(slice.j * SpriteWidth, slice.i * SpriteHeight, slice.w * SpriteWidth, slice.h * SpriteHeight);
         Image image = Raylib.ImageFromImage(atlasImage, imageBounds);
         Texture2D texture = Raylib.LoadTextureFromImage(image);
         Raylib.UnloadImage(image);
-        SetSprite(texture, i, j);
-    }
-
-    /// <summary>
-    /// Sets the sprite in the specified position of the atlas if the position is valid.
-    /// </summary>
-    /// <param name="sprite">The sprite to be set.</param>
-    /// <param name="i">Row of the sprite.</param>
-    /// <param name="j">Column of the sprite.</param>
-    public static void SetSprite(Texture2D sprite, uint i, uint j) {
-        if(i >= Rows || j >= Columns)
-            return;
-        _sprites[i, j] = sprite;
+        _sprites[slice.i, slice.j] = texture;
     }
 
     /// <summary>
@@ -83,11 +71,10 @@ public static class SpriteAtlas {
     /// <summary>
     /// Draws the desired sprite slice in the desired position.
     /// </summary>
-    /// <param name="i">Row of the sprite.</param>
-    /// <param name="j">Column of the sprite.</param>
+    /// <param name="slice">Desired slice.</param>
     /// <param name="x">Render X coordinate.</param>
     /// <param name="y">Render Y coordinate.</param>
-    public static void DrawSprite(int i, int j, int x, int y) {
-        Raylib.DrawTexture(GetSprite(i, j), x, y, Color.White);
+    public static void DrawSprite(SpriteSlice slice, int x, int y) {
+        Raylib.DrawTexture(GetSprite((int) slice.i, (int) slice.j), x, y, Color.White);
     }
 }

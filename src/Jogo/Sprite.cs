@@ -1,3 +1,8 @@
+/// <summary>
+/// Coordinates and size of a slice of the sprite atlas.
+/// </summary>
+/// <param name="i">Row of the slice.</param>
+/// <param name="j">Column of the slice.</param>
 public struct SpriteSlice(uint i, uint j) {
     public uint i = i;
     public uint j = j;
@@ -5,6 +10,9 @@ public struct SpriteSlice(uint i, uint j) {
     public uint h = 1;
 }
 
+/// <summary>
+/// List of all the slices to be imported into the atlas.
+/// </summary>
 public static class Sprite {
     public readonly static SpriteSlice Wall = new(0, 0);
     public readonly static SpriteSlice Flag = new(0, 1);
