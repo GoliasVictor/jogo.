@@ -6,40 +6,41 @@ using Raylib_cs;
 /// </summary>
 public class SpriteImporter {
     private const string _AtlasPath = "Assets/sprite-atlas.png";
-    private const int _SpriteWidth = 16;
-    private const int _SpriteHeight = 16;
+    private const uint _AtlasColumns = 4;
+    private const uint _AtlasRows = 5;
+    private const uint _SpriteWidth = 16;
+    private const uint _SpriteHeight = 16;
 
-    private static SpriteImporter instance = new SpriteImporter();
+    private static SpriteImporter instance = new();
 
-    private Image _atlas;
+    private Image _atlasImage;
 
     /// <summary>
-    /// The instance of the <see cref="SpriteImporter"/> class and loads necessary sprites.
+    /// Imports all Atlas tiles into SpriteAtlas, calledd when game starts.
     /// </summary>
-    /// <param name="position">The initial position of the player entity.</param>
-    private SpriteImporter() {
-        _atlas = Raylib.LoadImage(_AtlasPath);
+    public static void ImportAtlas() {
+        instance._atlasImage = Raylib.LoadImage(_AtlasPath);
+        SpriteAtlas.SetAtlasSize(_AtlasRows, _AtlasColumns);
+        Console.Write("nah");
+        for(uint i = 0; i < _AtlasRows; i++) {
+            for(uint j = 0; j < _AtlasColumns; j++) {
+                LoadSprite(i, j);
+            }
+        }
+        Raylib.UnloadImage(instance._atlasImage);
     }
 
     /// <summary>
-    /// Method <c>GetSprite</c> is responsible for restrieving the desired slice of the atlas.
+    /// Method <c>LoadSprite</c> is responsible for retrieving the desired slice and adding it to the Atlas.
     /// </summary>
     /// <param name="i">Sprite row</param>
     /// <param name="j">Sprite column</param>
     /// <returns>Texture2D slice of the atlas in the desired position.</returns>
-    public static Texture2D GetSprite(int i, int j) {
+    private static void LoadSprite(uint i, uint j) {
         Rectangle imageBounds = new Rectangle(j * _SpriteWidth, i * _SpriteHeight, _SpriteWidth, _SpriteHeight);
-        Image image = Raylib.ImageFromImage(instance._atlas, imageBounds);
+        Image image = Raylib.ImageFromImage(instance._atlasImage, imageBounds);
         Texture2D texture = Raylib.LoadTextureFromImage(image);
         Raylib.UnloadImage(image);
-        return texture;
+        SpriteAtlas.SetSprite(texture, i, j);
     }
-
-    /// <summary>
-    /// Unloads sprite atlas from RAM, call before exiting the program.
-    /// </summary>
-    public static void UnloadAtlas() {
-        Raylib.UnloadImage(instance._atlas);
-    }
-    
 }

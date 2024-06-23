@@ -8,7 +8,7 @@ static class GameSystem {
     public const int DefaultWindowWidth = 800;
     public const int DefaultWindowHeight = 600;
     private const string DefaultWindowName = "Elements";
-    public const int TileSize = 30;
+    public const int TileSize = 16;
 
     private static Color ClearColor = Color.DarkGray;
     private static int targetFPS = 60;
@@ -27,13 +27,14 @@ static class GameSystem {
         Raylib.SetTargetFPS(targetFPS);
         Raylib.InitAudioDevice();
 
+        SpriteImporter.ImportAtlas();
+
         while (!Raylib.WindowShouldClose())
         {
             Update();
             Render();
         }
 
-        SpriteImporter.UnloadAtlas();
         Raylib.CloseAudioDevice();
         Raylib.CloseWindow();
     }
