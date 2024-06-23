@@ -17,7 +17,7 @@ class Map
     /// <summary>
     /// Gets the number of columns in the map.
     /// </summary>
-    public int Collumns { get; }
+    public int Columns { get; }
 
     /// <summary>
     /// Gets all entities on the map.
@@ -37,7 +37,7 @@ class Map
         {
             if (0 > i || i >= Rows)
                 throw new IndexOutOfRangeException();
-            if (0 > j || j >= Collumns)
+            if (0 > j || j >= Columns)
                 throw new IndexOutOfRangeException();
             foreach (var entity in Entities)
                 if (entity.Position.i == i && entity.Position.j == j)
@@ -62,6 +62,6 @@ class Map
 
         this.Entities = entities.Where(e => e != null).ToList();
         Rows = rows;
-        Collumns = collumns;
+        Columns = collumns;
     }
 }

@@ -39,7 +39,7 @@ class Player(GridVec2 position) : IEntity, IElemental
 
     public bool CanOverlapWith(LevelScene level, IEntity entity)
     {
-        return true;
+        return entity.Layer != this.Layer;
     }
 
     public void ReceiveItem(LevelScene level, IItem item)
@@ -59,7 +59,7 @@ class Player(GridVec2 position) : IEntity, IElemental
 
         if (newPos.i < 0 || newPos.i >= level.Map.Rows)
             return;
-        if (newPos.j < 0 || newPos.j >= level.Map.Collumns)
+        if (newPos.j < 0 || newPos.j >= level.Map.Columns)
             return;
         foreach (var entity in level.Map[newPos].ToList())
         {

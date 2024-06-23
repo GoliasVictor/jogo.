@@ -17,8 +17,6 @@ class ElementChangerEntity(GridVec2 position, Element element) : IItem
         return entity is Player;
     }
 
-
-
     public void Render(LevelScene level, int x, int y)
     {
 

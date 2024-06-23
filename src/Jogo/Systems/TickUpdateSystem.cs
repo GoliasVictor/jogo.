@@ -26,7 +26,7 @@ class TickUpdateSystem : ISystem<LevelScene>
         
         level.Player.Move(level, direction);
         var entities = level.Map.Entities.ToList();
-        entities.Sort((a, b) => a.Layer.CompareTo(b.Layer));
+        entities.Sort((a, b) => b.Layer.CompareTo(a.Layer));
         foreach (var entity in entities)
         {
             entity.TickUpdate(level);

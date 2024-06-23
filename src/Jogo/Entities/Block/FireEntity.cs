@@ -17,7 +17,6 @@ class FireEntity(GridVec2 position) : IEntity, IElemental
 
     public void Render(LevelScene level, int x, int y)
     {
-
         Raylib.DrawRectangle(x, y, GameSystem.TileSize, GameSystem.TileSize, Color.Red);
         Raylib.DrawRectangle(x + 6, y + 6, GameSystem.TileSize - 12, GameSystem.TileSize - 12, Color.Gray);
     }

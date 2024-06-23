@@ -43,7 +43,7 @@ class Box(GridVec2 position) : IEntity, IElemental
             var newPos = Position + delta;
             if (newPos.i < 0 || newPos.i >= level.Map.Rows)
                 return;
-            if (newPos.j < 0 || newPos.j >= level.Map.Collumns)
+            if (newPos.j < 0 || newPos.j >= level.Map.Columns)
                 return;
             foreach (var another in level.Map[newPos].ToList())
             {

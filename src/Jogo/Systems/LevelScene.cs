@@ -45,7 +45,7 @@ class LevelScene(ISystem<LevelScene>[] systems, Map map) : IScene
     {
         for (int i = 0; i < Map.Rows; i++)
         {
-            for (int j = 0; j < Map.Collumns; j++)
+            for (int j = 0; j < Map.Columns; j++)
             {
                 var x = start_x + j * GameSystem.TileSize;
                 var y = start_y + i * GameSystem.TileSize;
@@ -60,7 +60,7 @@ class LevelScene(ISystem<LevelScene>[] systems, Map map) : IScene
     /// </summary>
     public void Render()
     {
-        int start_x = GameSystem.DefaultWindowWidth / 2 - Map.Collumns * GameSystem.TileSize / 2;
+        int start_x = GameSystem.DefaultWindowWidth / 2 - Map.Columns * GameSystem.TileSize / 2;
         int start_y = GameSystem.DefaultWindowHeight / 2 - Map.Rows * GameSystem.TileSize / 2;
         RenderFloor(start_x, start_y);
         foreach (var entity in Map.Entities)

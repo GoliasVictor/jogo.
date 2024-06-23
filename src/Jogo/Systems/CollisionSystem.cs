@@ -14,7 +14,7 @@ class CollisionSystem : ISystem<LevelScene>
 	{
 		for (int i = 0; i < context.Map.Rows; i++)
 		{
-			for (int j = 0; j < context.Map.Collumns; j++)
+			for (int j = 0; j < context.Map.Columns; j++)
 			{
 				var entities = context.Map[i, j].ToList();
 				foreach (var entity in entities)

@@ -10,8 +10,10 @@ interface IEntity
 	/// </summary>
 	GridVec2 Position { get; set; }
 	/// <summary>
-	/// Gets or sets the position of the entity on the grid.
-	/// </summary>
+	/// Gets the layer of the entity.
+	/// 
+	/// The layer determines the rendering and update order of the entity on scene.
+	///	</summary>
 	Layer Layer { get; }
 	/// <summary>
 	/// Renders the entity on the specified level scene at the given coordinates.
