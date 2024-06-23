@@ -31,5 +31,17 @@ interface IEntity
 	/// </summary>
 	/// <param name="level">The level scene where the collision occurred.</param>
 	/// <param name="player">The player entity involved in the collision.</param>
-	void Collide(LevelScene level, IEntity player) { }
+	void Collide(LevelScene level, IEntity entity) { }
+
+	/// <summary>
+	/// Handles the collision between the entity and another entity on the specified level scene.
+	/// </summary>
+	/// <param name="level"></param>
+	/// <param name="entity"></param>
+	void Colliding(LevelScene level, IEntity entity) { }
+	/// <summary>
+	/// Updates the entity on the specified level scene.
+	/// </summary>
+	/// <param name="level"></param>
+	void TickUpdate(LevelScene level) { }
 }

@@ -29,11 +29,15 @@ class PlayerMovementSystem : ISystem<LevelScene>
 			return;
 		if (newPos.j < 0 || newPos.j >= level.Map.Collumns)
 			return;
-		foreach(var entity in level.Map[newPos]){
+		foreach(var entity in level.Map[newPos].ToList()){
 			entity.Collide(level, player);
 		}
 		if (level.Map[newPos].Any(e => !e.CanOverlapWith(level, player)))
 			return;
 		player.Position = newPos;
+
+		foreach(var entity in level.Map.Entities.ToList()){
+			entity.TickUpdate(level);
+		}
 	}
 }

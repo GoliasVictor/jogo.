@@ -5,25 +5,22 @@ using Raylib_cs;
 /// <summary>
 /// Represents a box that can be pushed by the player across the map.
 /// </summary>
-class BlockEntity : IEntity
+class BoxEntity : IEntity, IElemental
 {
-	/// <summary>
-	/// Gets or sets the position of the block entity.
-	/// </summary>
 	public GridVec2 Position { get; set; }
-
+	public Element Element => Element.Leaf;
 	/// <summary>
-	/// Initializes a new instance of the <see cref="BlockEntity"/> class.
+	/// Initializes a new instance of the <see cref="BoxEntity"/> class.
 	/// </summary>
 	/// <param name="position">The position of the block entity.</param>
-	public BlockEntity(GridVec2 position)
+	public BoxEntity(GridVec2 position)
 	{
 		Position = position;
 	}
 
 	public bool CanOverlapWith(LevelScene level, IEntity entity)
 	{
-		return false;
+		return entity is FireEntity;
 	}
 
 	public void Render(LevelScene level, int x, int y)
@@ -51,9 +48,18 @@ class BlockEntity : IEntity
 				return;
 			if (newPos.j < 0 || newPos.j >= level.Map.Collumns)
 				return;
-			foreach (var another in level.Map[newPos])
+			foreach (var another in level.Map[newPos].ToList())
 			{
 				another.Collide(level, this);
+				if (another is FireEntity){
+					level.DestroyEntity(this);
+					return;
+				}
+				if (another is WaterEntity){
+					level.DestroyEntity(another);
+					level.DestroyEntity(this);
+					return;
+				}
 			}
 			if (level.Map[newPos].Any(e => !e.CanOverlapWith(level, this)))
 				return;
