@@ -4,7 +4,7 @@ using Raylib_cs;
 /// <summary>
 /// Responsible for importing the sprites into the game via the sprite atlas.
 /// </summary>
-public class SpriteImporter {
+public class SpriteImporter : IDisposable {
     private const string _AtlasPath = "Assets/sprite-atlas.png";
     private const uint _AtlasColumns = 4;
     private const uint _AtlasRows = 5;
@@ -28,6 +28,7 @@ public class SpriteImporter {
             }
         }
         Raylib.UnloadImage(instance._atlasImage);
+        instance.Dispose();
     }
 
     /// <summary>
@@ -43,4 +44,6 @@ public class SpriteImporter {
         Raylib.UnloadImage(image);
         SpriteAtlas.SetSprite(texture, i, j);
     }
+
+    public void Dispose() { }
 }
