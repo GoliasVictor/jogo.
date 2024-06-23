@@ -3,23 +3,19 @@ using Raylib_cs;
 /// <summary>
 /// Represents a player entity in the game.
 /// </summary>
-class Player : IEntity, IElemental
+/// <remarks>
+/// Initializes a new instance of the <see cref="Player"/> class with the specified position.
+/// </remarks>
+/// <param name="position">The initial position of the player entity.</param>
+class Player(GridVec2 position) : IEntity, IElemental
 {
     /// <summary>
     /// Gets or sets the position of the player entity on the grid.
     /// </summary>
-    public GridVec2 Position { get; set; }
+    public GridVec2 Position { get; set; } = position;
     public Layer Layer => Layer.Character;
     public Element Element { get; set; } = Element.Neutral;
     public bool PlayerKilled = false;
-    /// <summary>
-    /// Initializes a new instance of the <see cref="Player"/> class with the specified position.
-    /// </summary>
-    /// <param name="position">The initial position of the player entity.</param>
-    public Player(GridVec2 position)
-    {
-        Position = position;
-    }
 
     /// <summary>
     /// Renders the player entity on the screen.
@@ -46,7 +42,7 @@ class Player : IEntity, IElemental
         return true;
     }
 
-    public void RecipeItem(LevelScene level, IItem item)
+    public void ReceiveItem(LevelScene level, IItem item)
     {
         item.Utilize(level, this);
     }

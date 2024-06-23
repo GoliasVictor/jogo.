@@ -15,7 +15,7 @@ class ItemCollectionSystem : ISystem<LevelScene>
 
         foreach (var item in entities.OfType<IItem>().ToList())
         {
-            player.RecipeItem(context, item);
+            player.ReceiveItem(context, item);
             context.DestroyEntity(item);
         }
     }
