@@ -21,7 +21,6 @@ public class SpriteImporter : IDisposable {
     public static void ImportAtlas() {
         instance._atlasImage = Raylib.LoadImage(_AtlasPath);
         SpriteAtlas.SetAtlasSize(_AtlasRows, _AtlasColumns);
-        Console.Write("nah");
         for(uint i = 0; i < _AtlasRows; i++) {
             for(uint j = 0; j < _AtlasColumns; j++) {
                 LoadSprite(i, j);
