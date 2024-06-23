@@ -40,12 +40,8 @@ namespace Jogo.Systems
         /// </summary>
         /// <param name="sound">SoundEffect</param>
         /// <returns>AudioStream</returns>
-        public void PlaySound(SoundEffect sound);
+        public void  PlaySound(SoundEffect sound);
 
-        /// <summary>
-        /// <param>Updates Music Stream buffer</param>
-        /// </summary>
-        public void Update();
 
         /// <summary>
         /// <param>Updates Music Stream buffer and starts to play if it isn't being played</param>

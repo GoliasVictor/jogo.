@@ -9,7 +9,12 @@ interface IEntity
 	/// Gets or sets the position of the entity on the grid.
 	/// </summary>
 	GridVec2 Position { get; set; }
-
+	/// <summary>
+	/// Gets the layer of the entity.
+	/// 
+	/// The layer determines the rendering and update order of the entity on scene.
+	///	</summary>
+	Layer Layer { get; }
 	/// <summary>
 	/// Renders the entity on the specified level scene at the given coordinates.
 	/// </summary>
@@ -24,12 +29,24 @@ interface IEntity
 	/// <param name="level">The level scene to check for overlapping entities.</param>
 	/// <param name="entity">The entity to check for overlapping.</param>
 	/// <returns>True if the entity can be overlapped by the specified entity, otherwise false.</returns>
-	bool CanOverlapWith(LevelScene level, IEntity entity);
+	public bool CanOverlapWith(LevelScene level, IEntity entity);
 
 	/// <summary>
 	/// Handles the collision between the entity and the player on the specified level scene.
 	/// </summary>
 	/// <param name="level">The level scene where the collision occurred.</param>
 	/// <param name="player">The player entity involved in the collision.</param>
-	void Collide(LevelScene level, IEntity player) { }
+	void Collide(LevelScene level, IEntity entity) { }
+
+	/// <summary>
+	/// Handles the collision between the entity and another entity on the specified level scene.
+	/// </summary>
+	/// <param name="level"></param>
+	/// <param name="entity"></param>
+	void Colliding(LevelScene level, IEntity entity) { }
+	/// <summary>
+	/// Updates the entity on the specified level scene.
+	/// </summary>
+	/// <param name="level"></param>
+	void TickUpdate(LevelScene level) { }
 }
