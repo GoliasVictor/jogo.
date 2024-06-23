@@ -1,25 +1,45 @@
 using Raylib_cs;
 
 /// <summary>
-/// Responsible for storing all of the Sprites after they have been imported
+/// Responsible for storing all of the Sprite slices from the sprite-atlas file.
 /// </summary>
-public class SpriteAtlas {
-    private static SpriteAtlas instance = new(0, 0);
+public static class SpriteAtlas {
 
-    private Texture2D[, ] _sprites;
-    private readonly uint _rows;
-    private readonly uint _columns;
+    private const string SourcePath = @"Assets/sprite-atlas.png";
+    private const uint Columns = 4;
+    private const uint Rows = 5;
+    
+    public const uint SpriteWidth = 16;
+    public const uint SpriteHeight = 16;
+
+    private static Texture2D[, ] _sprites = new Texture2D[Rows, Columns];
 
     /// <summary>
-    /// Creates new SpriteAtlas and sets instance to it.
+    /// Loads all sprites into atlas.
     /// </summary>
-    /// <param name="rows">Number of rows of the Atlas.</param>
-    /// <param name="columns">Number of columns of the Atlas.</param>
-    public SpriteAtlas(uint rows, uint columns) {
-        _rows = rows;
-        _columns = columns;
-        _sprites = new Texture2D[rows, columns];
-        instance = this;
+    public static void LoadAtlas() {
+        Image fullImage = Raylib.LoadImage(SourcePath);
+        for(uint i = 0; i < Rows; i++) {
+            for(uint j = 0; j < Columns; j++) {
+                LoadSprite(fullImage, i, j);
+            }
+        }
+        Raylib.UnloadImage(fullImage);
+    }
+
+    /// <summary>
+    /// Method <c>LoadSprite</c> is responsible for retrieving the desired slice and adding it to the Atlas.
+    /// </summary>
+    /// <param name="atlasImage">The entire atlas source.</param>
+    /// <param name="i">Sprite row</param>
+    /// <param name="j">Sprite column</param>
+    /// <returns>Texture2D slice of the atlas in the desired position.</returns>
+    private static void LoadSprite(Image atlasImage, uint i, uint j) {
+        Rectangle imageBounds = new Rectangle(j * SpriteWidth, i * SpriteHeight, SpriteWidth, SpriteHeight);
+        Image image = Raylib.ImageFromImage(atlasImage, imageBounds);
+        Texture2D texture = Raylib.LoadTextureFromImage(image);
+        Raylib.UnloadImage(image);
+        SetSprite(texture, i, j);
     }
 
     /// <summary>
@@ -29,9 +49,9 @@ public class SpriteAtlas {
     /// <param name="i">Row of the sprite.</param>
     /// <param name="j">Column of the sprite.</param>
     public static void SetSprite(Texture2D sprite, uint i, uint j) {
-        if(i >= instance._rows || j >= instance._columns)
+        if(i >= Rows || j >= Columns)
             return;
-        instance._sprites[i, j] = sprite;
+        _sprites[i, j] = sprite;
     }
 
     /// <summary>
@@ -43,17 +63,17 @@ public class SpriteAtlas {
     /// <exception cref="IndexOutOfRangeException">Invalid desired position.</exception>
     public static Texture2D GetSprite(int i, int j) {
         try {
-            return instance._sprites[i, j];        
+            return _sprites[i, j];        
         } catch(IndexOutOfRangeException e) {
-            bool iValid = (i >= 0) && (i < instance._rows);
-            bool jValid = (j >= 0) && (j < instance._columns);
+            bool iValid = (i >= 0) && (i < Rows);
+            bool jValid = (j >= 0) && (j < Columns);
             string exceptionDescription;
             if(!iValid && !jValid) {
-                exceptionDescription = $"<Row {i}; Column {j}> not available in Atlas with {instance._rows}x{instance._columns}";
+                exceptionDescription = $"<Row {i}; Column {j}> not available in Atlas with {Rows}x{Columns}";
             }else if(!iValid) {
-                exceptionDescription = $"Row {i} not avaliable in Atlas with {instance._rows} rows.";
+                exceptionDescription = $"Row {i} not avaliable in Atlas with {Rows} rows.";
             }else {
-                exceptionDescription = $"Column {i} not avaliable in Atlas with {instance._columns} Columns.";
+                exceptionDescription = $"Column {i} not avaliable in Atlas with {Columns} Columns.";
             }
 
             throw new IndexOutOfRangeException(exceptionDescription, e);

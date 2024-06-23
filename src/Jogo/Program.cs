@@ -27,7 +27,7 @@ static class GameSystem {
         Raylib.SetTargetFPS(targetFPS);
         Raylib.InitAudioDevice();
 
-        SpriteImporter.ImportAtlas();
+        SpriteAtlas.LoadAtlas();
 
         while (!Raylib.WindowShouldClose())
         {
