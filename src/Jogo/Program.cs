@@ -1,4 +1,5 @@
 ﻿using Raylib_cs;
+using Jogo.Systems;
 
 
 /// <sumary>
@@ -13,19 +14,100 @@ static class GameSystem {
     private static Color ClearColor = Color.DarkGray;
     private static int targetFPS = 60;
     private static IScene currentScene;
-    static GameSystem(){
-        var grid = new IEntity[17, 17];
-        currentScene = new LevelScene([new PlayerMovementSystem()], new Map(grid,[
-            new PlayerEntity(new GridVec2(8,8)),
-            new BlockEntity(new GridVec2(10,10)),
-        ]));
-        
+    private static Audio audio = new();
+
+    static GameSystem()
+    {
+        currentScene = MockLevel();
     }
+
+    private static LevelScene MockLevel()
+    {
+        return new LevelScene([new TickUpdateSystem(), new CollisionSystem(), new ItemCollectionSystem()], new Map(10, 10, [
+            new Wall(new GridVec2(0,0)),
+            new Wall(new GridVec2(1,0)),
+            new Wall(new GridVec2(2,0)),
+            new Wall(new GridVec2(3,0)),
+            new Wall(new GridVec2(4,0)),
+            new Wall(new GridVec2(5,0)),
+            new Wall(new GridVec2(6,0)),
+            new Wall(new GridVec2(7,0)),
+            new Wall(new GridVec2(8,0)),
+            new Wall(new GridVec2(9,0)),
+            new Wall(new GridVec2(0,9)),
+            new Wall(new GridVec2(1,9)),
+            new Wall(new GridVec2(2,9)),
+            new Wall(new GridVec2(3,9)),
+            new Wall(new GridVec2(4,9)),
+            new Wall(new GridVec2(5,9)),
+            new Wall(new GridVec2(6,9)),
+            new Wall(new GridVec2(7,9)),
+            new Wall(new GridVec2(8,9)),
+            new Wall(new GridVec2(9,9)),
+
+
+            new Wall(new GridVec2(0,1)),
+            new Wall(new GridVec2(0,2)),
+            new Wall(new GridVec2(0,3)),
+            new Wall(new GridVec2(0,4)),
+            new Wall(new GridVec2(0,5)),
+            new Wall(new GridVec2(0,6)),
+            new Wall(new GridVec2(0,7)),
+            new Wall(new GridVec2(0,8)),
+            new Wall(new GridVec2(9,1)),
+            new Wall(new GridVec2(9,2)),
+            new Wall(new GridVec2(9,3)),
+            new Wall(new GridVec2(9,4)),
+            new Wall(new GridVec2(9,5)),
+            new Wall(new GridVec2(9,6)),
+            new Wall(new GridVec2(9,7)),
+            new Wall(new GridVec2(9,8)),
+
+
+            new Wall(new GridVec2(1,5)),
+            new Wall(new GridVec2(2,5)),
+            new Wall(new GridVec2(3,5)),
+            new Wall(new GridVec2(4,5)),
+            new Wall(new GridVec2(6,5)),
+            new Wall(new GridVec2(7,5)),
+
+            new Wall(new GridVec2(6,6)),
+            new Wall(new GridVec2(6,7)),
+            new Wall(new GridVec2(6,8)),
+
+            new DoorEntity(new GridVec2(8,5)),
+            new Box(new GridVec2(7,2)),
+
+            new Box(new GridVec2(5,5)),
+
+            new FireEntity(new GridVec2(5,6)),
+            new FireEntity(new GridVec2(5,7)),
+            new FireEntity(new GridVec2(5,8)),
+
+            new FireEntity(new GridVec2(4,7)),
+            new FireEntity(new GridVec2(4,8)),
+
+            new WaterEntity(new GridVec2(1,2)),
+            new WaterEntity(new GridVec2(2,2)),
+            new WaterEntity(new GridVec2(2,1)),
+            new Key(new GridVec2(1,1)),
+
+            new ElementChangerEntity(new GridVec2(5,1), Element.Leaf),
+            new ElementChangerEntity(new GridVec2(5,2), Element.Fire),
+            new ElementChangerEntity(new GridVec2(1,8), Element.Water),
+            new Enemy(new GridVec2(3,4), Element.Leaf, false),
+            new Enemy(new GridVec2(6,3), Element.Water, true),
+            new Enemy(new GridVec2(2,6), Element.Fire, true),
+            new Player(new GridVec2(4,3)),
+        ]));
+    }
+
     static void Main() {
         Raylib.InitWindow(DefaultWindowWidth, DefaultWindowHeight, DefaultWindowName);
 
         Raylib.SetTargetFPS(targetFPS);
         Raylib.InitAudioDevice();
+        audio.PlayMusic(IAudio.MusicEffect.TitleScreen);
 
         SpriteAtlas.LoadAtlas();
 
@@ -48,6 +130,9 @@ static class GameSystem {
     /// </summary>
     private static void Update() {
         UpdateObjects();
+        if (currentScene is LevelScene level && level.Player.PlayerKilled){
+            currentScene = MockLevel();
+        }
         UpdateUI();
     }
 
@@ -76,6 +161,7 @@ static class GameSystem {
     /// </summary>
     private static void UpdateObjects() {
         currentScene.Update();
+        audio.Update();
     }
 
     /// <summary>
