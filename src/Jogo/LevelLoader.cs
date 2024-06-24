@@ -71,7 +71,6 @@ static class LevelLoader
 
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                Console.WriteLine(tokenMap[i][j]);
                 GridVec2 position = new GridVec2(i, j);
                 IEntity? entity = tokenMap[i][j][0] switch {
                     LevelToken.Player => new Player(position),
