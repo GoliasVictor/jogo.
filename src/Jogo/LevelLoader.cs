@@ -64,7 +64,6 @@ static class LevelLoader
         foreach (string line in map_rows) {
             string [] current_row = line.Split();
             tokenMap.Add(current_row);
-            foreach(string token in current_row) Console.WriteLine(token);
         }
 
         List<IEntity> map_entities = [];
@@ -97,5 +96,49 @@ static class LevelLoader
             }
         }
         return new Map(10, 10, map_entities);
+    }
+
+    public static string ParseMap(Map map) {
+        string fullParse = "";
+        for(int i = 0; i < 10; i++) {
+            string line = "";
+            for(int j = 0; j < 10; j++) {
+                IEntity? entity = (map[i, j].Count() != 0)? map[i, j].First() : null;
+                if(entity != null) {
+                    line += entity.GetType().Name switch {
+                        "Player" => LevelToken.Player,
+                        "Enemy" =>
+                            LevelToken.Enemy +
+                            ((Enemy) entity).Element switch {
+                                Element.Water => LevelToken.Water,
+                                Element.Leaf => LevelToken.Grass,
+                                Element.Fire => LevelToken.Fire,
+                                _ => LevelToken.None
+                            } +
+                            ((((Enemy) entity).direction.j != 0)? LevelToken.Horizontal : LevelToken.Vertical),
+                        "Box" => LevelToken.Grass,
+                        "FireEntity" => LevelToken.Fire,
+                        "WaterEntity" => LevelToken.Water,
+                        "DoorEntity" => LevelToken.Door,
+                        "Wall" => LevelToken.Wall,
+                        "Key" => LevelToken.Key,
+                        "ElementChangerEntity1" => LevelToken.Item +
+                            ((ElementChangerEntity) entity).Element switch {
+                                Element.Water => LevelToken.Water,
+                                Element.Leaf => LevelToken.Grass,
+                                Element.Fire => LevelToken.Fire,
+                                _ => LevelToken.None
+                            },
+                        _ => "_"
+                    };
+                }else {
+                    line += '_';
+                }
+                line += ' ';
+            }
+            if(i < 9) line += ", ";
+            fullParse += line;
+        }
+        return fullParse;
     }
 }
