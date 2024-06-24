@@ -116,6 +116,18 @@ public class LevelBuilderScene : IScene
                         entity = new ElementChangerEntity(_selection, Element.Leaf);
                     }
                 break;
+                case BuilderKey.Wall:
+                    entity = new Wall(_selection);
+                break;
+                case BuilderKey.Door:
+                    entity = new DoorEntity(_selection);
+                break;
+                case BuilderKey.Key:
+                    entity = new Key(_selection);
+                break;
+                case BuilderKey.Item:
+                    entity = new ElementChangerEntity(_selection, Element.Water);
+                break;
                 default: break;
             }
             cmd = Raylib.GetKeyPressed();
