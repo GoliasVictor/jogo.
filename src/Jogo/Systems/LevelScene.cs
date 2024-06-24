@@ -16,7 +16,7 @@ class LevelScene(ISystem<LevelScene>[] systems, Map map) : IScene
 
     ISystem<LevelScene>[] systems = systems;
 
-    private Camera2D _camera = GenerateCamera(map);
+    public Camera2D _camera { get; private set;}= GenerateCamera(map);
 
     /// <summary>
     /// Gets the map associated with the level scene.

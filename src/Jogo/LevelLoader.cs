@@ -51,7 +51,6 @@ static class LevelLoader
     public static Map Load(string yamlMap)
     {
         if(string.IsNullOrEmpty(yamlMap)) yamlMap = SampleLevel;
-        Console.WriteLine(yamlMap);
         // Deserialize
         var deserializer = new DeserializerBuilder()
             .WithNamingConvention(UnderscoredNamingConvention.Instance)
