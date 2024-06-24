@@ -5,6 +5,21 @@ using Raylib_cs;
 /// </summary>
 public class LevelBuilderScene : IScene
 {
+    private static class BuilderKey {
+        public const KeyboardKey Player = KeyboardKey.Zero;
+        public const KeyboardKey Wall = KeyboardKey.One;
+        public const KeyboardKey Block = KeyboardKey.Two;
+        public const KeyboardKey Enemy = KeyboardKey.Three; 
+        public const KeyboardKey Item = KeyboardKey.Four;
+        public const KeyboardKey Key = KeyboardKey.Five;
+        public const KeyboardKey Door = KeyboardKey.Six;
+        public const KeyboardKey Goal = KeyboardKey.Nine;
+        public const KeyboardKey Fire = KeyboardKey.Kp1;
+        public const KeyboardKey Water = KeyboardKey.Kp2;
+        public const KeyboardKey Grass = KeyboardKey.Kp3;
+    }
+
+
     private const string CustomLevelPath = @"Levels/custom-levels.yaml";
 
     private bool _isTesting = false;
