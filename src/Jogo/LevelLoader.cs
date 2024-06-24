@@ -146,7 +146,7 @@ static class LevelLoader
                         "DoorEntity" => LevelToken.Door,
                         "Wall" => LevelToken.Wall,
                         "Key" => LevelToken.Key,
-                        "ElementChangerEntity1" => new string([LevelToken.Item,
+                        "ElementChangerEntity" => new string([LevelToken.Item,
                             ((ElementChangerEntity) entity).Element switch {
                                 Element.Water => LevelToken.Water,
                                 Element.Leaf => LevelToken.Grass,
