@@ -130,27 +130,27 @@ static class LevelLoader
                     line += entity.GetType().Name switch {
                         "Player" => LevelToken.Player,
                         "Enemy" =>
-                            LevelToken.Enemy +
+                            new string([LevelToken.Enemy,
                             ((Enemy) entity).Element switch {
                                 Element.Water => LevelToken.Water,
                                 Element.Leaf => LevelToken.Grass,
                                 Element.Fire => LevelToken.Fire,
                                 _ => LevelToken.None
-                            } +
-                            ((((Enemy) entity).direction.j != 0)? LevelToken.Horizontal : LevelToken.Vertical),
+                            },
+                            ((((Enemy) entity).direction.j != 0)? LevelToken.Horizontal : LevelToken.Vertical)]),
                         "Box" => LevelToken.Grass,
                         "FireEntity" => LevelToken.Fire,
                         "WaterEntity" => LevelToken.Water,
                         "DoorEntity" => LevelToken.Door,
                         "Wall" => LevelToken.Wall,
                         "Key" => LevelToken.Key,
-                        "ElementChangerEntity1" => LevelToken.Item +
+                        "ElementChangerEntity1" => new string([LevelToken.Item,
                             ((ElementChangerEntity) entity).Element switch {
                                 Element.Water => LevelToken.Water,
                                 Element.Leaf => LevelToken.Grass,
                                 Element.Fire => LevelToken.Fire,
                                 _ => LevelToken.None
-                            },
+                            }]),
                         _ => "_"
                     };
                 }else {
