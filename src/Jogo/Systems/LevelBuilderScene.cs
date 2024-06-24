@@ -5,6 +5,9 @@ using Raylib_cs;
 /// </summary>
 public class LevelBuilderScene : IScene
 {
+    /// <summary>
+    /// Keybinds for LevelBuilder map manipulation. 
+    /// </summary>
     private static class BuilderKey {
         public const KeyboardKey Player = KeyboardKey.Zero;
         public const KeyboardKey Wall = KeyboardKey.One;
@@ -43,6 +46,10 @@ public class LevelBuilderScene : IScene
         }
     }
 
+    /// <summary>
+    /// Generates a new LevelBuilderScene and loads the map stored in "Levels/custom-levels.yaml" relative to the index.
+    /// </summary>
+    /// <param name="index">Index of the level.</param>
     public LevelBuilderScene(int index) {
         this.index = index;
         _map = LevelLoader.LoadFromYaml(CustomLevelPath, index);
@@ -76,6 +83,9 @@ public class LevelBuilderScene : IScene
         }
     }
 
+    /// <summary>
+    /// Manages cell operations based on BuilderKey presses.
+    /// </summary>
     private void HandleCell() {
         int cmd = Raylib.GetKeyPressed();
         IEntity? entity = (_map[_selection].Count() > 0)? _map[_selection].First() : null;
