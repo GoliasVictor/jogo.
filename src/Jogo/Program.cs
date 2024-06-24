@@ -11,7 +11,7 @@ static class GameSystem {
     private const string DefaultWindowName = "Elements";
     public const int TileSize = 16;
 
-    private static Color ClearColor = Color.DarkGray;
+    private static Color ClearColor = Color.Black;
     private static int targetFPS = 60;
     private static IScene currentScene;
     private static Audio audio = new();
@@ -104,6 +104,8 @@ static class GameSystem {
 
     static void Main() {
         Raylib.InitWindow(DefaultWindowWidth, DefaultWindowHeight, DefaultWindowName);
+
+        currentScene.ViewSizeChanged();
 
         Raylib.SetTargetFPS(targetFPS);
         Raylib.InitAudioDevice();

@@ -25,16 +25,16 @@ class Player(GridVec2 position) : IEntity, IElemental
     /// <param name="y">The y-coordinate of the top-left corner of the player entity's rendering area.</param>
     public void Render(LevelScene level, int x, int y)
     {
-        Color color = this.Element switch
+        SpriteSlice sprite = this.Element switch
         {
-            Element.Neutral => Color.White,
-            Element.Fire => Color.Red,
-            Element.Leaf => Color.Green,
-            Element.Water => Color.Blue,
-            _ => Color.White
+            Element.Neutral => Sprite.NeutralPlayer,
+            Element.Fire => Sprite.FirePlayer,
+            Element.Leaf => Sprite.GrassPlayer,
+            Element.Water => Sprite.WaterPlayer,
+            _ => Sprite.NeutralPlayer
         };
 
-        Raylib.DrawCircle(x + GameSystem.TileSize / 2, y + GameSystem.TileSize / 2, (GameSystem.TileSize - 6) / 2f, color);
+        SpriteAtlas.DrawSprite(sprite, x, y);
     }
 
     public bool CanOverlapWith(LevelScene level, IEntity entity)

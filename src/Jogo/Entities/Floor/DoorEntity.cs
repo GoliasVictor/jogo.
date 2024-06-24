@@ -15,6 +15,6 @@ class DoorEntity(GridVec2 position) : IEntity
 
     public void Render(LevelScene level, int x, int y)
     {
-        Raylib.DrawRectangle(x, y, GameSystem.TileSize, GameSystem.TileSize, Color.Yellow);
+        SpriteAtlas.DrawSprite(Sprite.Door, x, y);
     }
 }
