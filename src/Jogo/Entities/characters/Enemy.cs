@@ -10,7 +10,7 @@ class Enemy : IEntity, IElemental
     public Layer Layer => Layer.Character;
 
     public Element Element { get; set; }
-    private GridVec2 direction;
+    public GridVec2 direction { get; private set;}
 
     public Enemy(GridVec2 position, Element element, bool horizontal)
     {
