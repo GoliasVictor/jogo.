@@ -86,6 +86,7 @@ static class LevelLoader
                     LevelToken.Grass => new Box(position),
                     LevelToken.Fire => new FireEntity(position),
                     LevelToken.Goal => new Goal(position),
+                    LevelToken.Key => new Key(position),
                     _ => null
                 };
                 if(entity != null) map_entities.Add(entity);

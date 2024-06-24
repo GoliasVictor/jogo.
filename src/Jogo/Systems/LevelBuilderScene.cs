@@ -106,6 +106,9 @@ public class LevelBuilderScene : IScene
                 case BuilderKey.Block:
                     entity = new Box(_selection);
                 break;
+                case BuilderKey.Enemy:
+                    entity = new Enemy(_selection, Element.Water, true);
+                break;
                 case BuilderKey.Fire:
                     if(entity is Box || entity is WaterEntity) {
                         entity = new FireEntity(_selection);
