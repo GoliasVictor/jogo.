@@ -28,37 +28,31 @@ static class LevelToken {
 static class LevelLoader
 {
     private const string SampleLevel = """
-        ---
-        - >
-            w w w w w w w w w w,
-            w p _ _ _ _ _ _ _ w,
-            w _ _ _ _ _ _ _ _ w,
-            w _ _ _ _ _ _ _ _ w,
-            w _ _ _ _ _ _ _ _ w,
-            w _ _ _ _ _ _ _ _ w,
-            w _ _ _ _ _ _ _ _ w,
-            w _ _ _ _ _ _ _ _ w,
-            w _ _ _ _ _ _ _ g w,
-            w w w w w w w w w w
-        ...
+        w w w w w w w w w w, 
+        w p _ _ _ _ _ _ _ w, 
+        w _ _ _ _ _ _ _ _ w, 
+        w _ _ _ _ _ _ _ _ w, 
+        w _ _ _ _ _ _ _ _ w, 
+        w _ _ _ _ _ _ _ _ w, 
+        w _ _ _ _ _ _ _ _ w, 
+        w _ _ _ _ _ _ _ _ w, 
+        w _ _ _ _ _ _ _ g w, 
+        w w w w w w w w w w
         """;
 
     /// <summary>
-    /// Loads a YAML string into a Map.
+    /// Loads a string into a Map.
     /// </summary>
-    /// <param name="yamlMap">Content of the YAML file.</param>
-    /// <returns>The full loaded map.</returns>
-    public static Map Load(string yamlMap)
-    {
-        if(string.IsNullOrEmpty(yamlMap)) yamlMap = SampleLevel;
-        // Deserialize
-        var deserializer = new DeserializerBuilder()
-            .WithNamingConvention(UnderscoredNamingConvention.Instance)
-            .Build();
+    /// <param name="map">The map string.</param>
+    /// <returns>The loaded Map.</returns>
+    public static Map LoadFromString(string map) {
+        if(string.IsNullOrWhiteSpace(map)) map = SampleLevel;
+        map = new string((from c in map
+                            where (c != '\r') && (c != '\n')
+                            select c
+                        ).ToArray());
 
-        var MapDefs = deserializer.Deserialize<List<string>>(yamlMap);
-
-        string [] map_rows = MapDefs[0].Split(", ");
+        string [] map_rows = map.Split(", ");
 
         List<string[]> tokenMap = [];
         
@@ -69,8 +63,8 @@ static class LevelLoader
 
         List<IEntity> map_entities = [];
 
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
+        for (int i = 0; i < Math.Min(10, tokenMap.Count); i++) {
+            for (int j = 0; j < Math.Min(10, tokenMap[i].Length); j++) {
                 GridVec2 position = new GridVec2(i, j);
                 IEntity? entity = tokenMap[i][j][0] switch {
                     LevelToken.Player => new Player(position),
@@ -97,6 +91,33 @@ static class LevelLoader
             }
         }
         return new Map(10, 10, map_entities);
+    }
+
+    /// <summary>
+    /// Loads a YAML string into a Map.
+    /// </summary>
+    /// <param name="yamlMap">Content of the YAML file.</param>
+    /// <returns>The full loaded map.</returns>
+    public static Map LoadFromYaml(string path, int index)
+    {
+        string yamlMap = File.ReadAllText(path);
+        if(string.IsNullOrEmpty(yamlMap)) yamlMap = SampleLevel;
+        // Deserialize
+        var deserializer = new DeserializerBuilder()
+            .WithNamingConvention(UnderscoredNamingConvention.Instance)
+            .Build();
+
+        var MapDefs = deserializer.Deserialize<List<string>>(yamlMap);
+
+        string mapString;
+
+        if(index < 0 || index >= MapDefs.Count) {
+            mapString = "";
+        }else {
+            mapString = MapDefs[index];
+        }
+
+        return LoadFromString(mapString);
     }
 
     public static string ParseMap(Map map) {
@@ -141,7 +162,6 @@ static class LevelLoader
             if(i < 9) line += ", ";
             fullParse += line;
         }
-        List<string> m = [fullParse];
-        return new SerializerBuilder().Build().Serialize(m);
+        return fullParse;
     }
 }
