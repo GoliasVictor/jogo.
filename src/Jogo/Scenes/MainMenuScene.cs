@@ -49,7 +49,7 @@ class MainMenuScene : UIScene
 
     private void OnExitButtonPressed(object? sender, EventArgs e)
     {
-        Console.WriteLine("Exiting...");
+        GameSystem.ShouldExit = true;
     }
 
 

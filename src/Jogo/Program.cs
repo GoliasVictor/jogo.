@@ -15,6 +15,7 @@ static class GameSystem {
     private static int targetFPS = 60;
     private static IScene currentScene;
     private static Audio audio = new();
+    public static bool ShouldExit = false;
 
     static GameSystem()
     {
@@ -104,6 +105,7 @@ static class GameSystem {
 
     static void Main() {
         Raylib.InitWindow(DefaultWindowWidth, DefaultWindowHeight, DefaultWindowName);
+        Raylib.SetExitKey(KeyboardKey.Null);
 
         currentScene.ViewSizeChanged();
 
@@ -113,10 +115,13 @@ static class GameSystem {
 
         SpriteAtlas.LoadAtlas();
 
-        while (!Raylib.WindowShouldClose())
+        while (!ShouldExit)
         {
             Update();
             Render();
+            if(Raylib.WindowShouldClose()) {
+                ShouldExit = true;
+            }
         }
 
         Raylib.CloseAudioDevice();
