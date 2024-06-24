@@ -8,6 +8,7 @@ class UIImage(Texture2D texture, Container? parent = null) : UIComponent(parent)
     public override void Render()
     {
         var position = Parent.GetPosition(this);
-        Raylib.DrawTexture(Texture, (int)position.X, (int)position.Y, new Color(0,0,0,0));
+        Console.WriteLine(Size);
+        Raylib.DrawTexture(Texture, (int)position.X, (int)position.Y, Color.White);
     }
 }
