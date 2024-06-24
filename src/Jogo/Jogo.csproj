@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="RayLib-cs" Version="6.0.0" />
+    <PackageReference Include="yamldotnet" Version="15.3.0" />
   </ItemGroup>
 
   <ItemGroup>
