@@ -17,7 +17,7 @@ public class LevelBuilderScene : IScene
         public const KeyboardKey Fire = KeyboardKey.Kp1;
         public const KeyboardKey Water = KeyboardKey.Kp2;
         public const KeyboardKey Grass = KeyboardKey.Kp3;
-        public const KeyboardKey None = KeyboardKey.Backspace;
+        public const KeyboardKey None = KeyboardKey.Kp0;
     }
 
 
@@ -56,7 +56,7 @@ public class LevelBuilderScene : IScene
 
         if(IsTesting) {
             _testScene.Update();
-            if (_testScene.Player.PlayerKilled){
+            if (_testScene.Player.PlayerKilled || _testScene.levelWon){
                 _testScene = new LevelScene([new TickUpdateSystem(), new CollisionSystem(), new ItemCollectionSystem()], _map);
                 IsTesting = false;
             }
@@ -69,13 +69,20 @@ public class LevelBuilderScene : IScene
             if(_selection.i >= 10) _selection.i = 0;
             if(_selection.j >= 10) _selection.j = 0;
             HandleCell();
+
+            if(Raylib.IsKeyDown(KeyboardKey.LeftControl) && Raylib.IsKeyPressed(KeyboardKey.S)) {
+                index = LevelLoader.StoreMap(_map, CustomLevelPath, index);
+            }
         }
     }
 
     private void HandleCell() {
         int cmd = Raylib.GetKeyPressed();
         IEntity? entity = (_map[_selection].Count() > 0)? _map[_selection].First() : null;
-        if(entity is Player) return;
+        if(entity is Player)
+            return;
+        if(entity is Goal && _map.Entities.Count(e => e is Goal) == 1)
+            return; 
         if(entity != null) _map.Entities.Remove(entity);
         while(cmd != 0) {
             switch((KeyboardKey) cmd) {
@@ -127,6 +134,9 @@ public class LevelBuilderScene : IScene
                 break;
                 case BuilderKey.Item:
                     entity = new ElementChangerEntity(_selection, Element.Water);
+                break;
+                case BuilderKey.Goal:
+                    entity = new Goal(_selection);
                 break;
                 default: break;
             }
