@@ -1,12 +1,18 @@
 using Raylib_cs;
 
+/// <summary>
+/// A tool for creating and editing level in the game
+/// </summary>
 public class LevelBuilderScene : IScene
 {
+    private const string CustomLevelPath = @"Levels/custom-levels.yaml";
+
     private bool _isTesting = false;
     private Map _map;
     private LevelScene _testScene;
     private string _mapBackup = "";
     private GridVec2 _selection = GridVec2.ZERO;
+    private int index;
 
     private bool IsTesting {
         get => _isTesting;
@@ -14,15 +20,17 @@ public class LevelBuilderScene : IScene
             if(value) {
                 _mapBackup = LevelLoader.ParseMap(_map);
             }else{
-                _map = LevelLoader.Load(_mapBackup);
+                _map = LevelLoader.LoadFromString(_mapBackup);
                 _testScene = new LevelScene([new TickUpdateSystem(), new CollisionSystem(), new ItemCollectionSystem()], _map);
             }
             _isTesting = value;
         }
     }
 
-    public LevelBuilderScene() {
-        _map = LevelLoader.Load("");
+    public LevelBuilderScene(int index) {
+        this.index = index;
+        _map = LevelLoader.LoadFromYaml(CustomLevelPath, index);
+        _mapBackup = LevelLoader.ParseMap(_map);
         _testScene = new LevelScene([new TickUpdateSystem(), new CollisionSystem(), new ItemCollectionSystem()], _map);
     }
 
@@ -59,6 +67,7 @@ public class LevelBuilderScene : IScene
 
             Raylib.EndMode2D();
         }
+        Raylib.DrawFPS(0,120);
     }
 
     public void ViewSizeChanged() {
