@@ -65,7 +65,7 @@ class LevelScene(ISystem<LevelScene>[] systems, Map map) : IScene
     public void Render()
     {
         Raylib.BeginMode2D(_camera);
-            foreach (var entity in Map.Entities)
+            foreach (var entity in Map.Entities.OrderBy(e => e.Layer).ToList())
             {
                 var x = entity.Position.j * GameSystem.TileSize;
                 var y = entity.Position.i * GameSystem.TileSize;
