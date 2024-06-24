@@ -65,11 +65,11 @@ class LevelScene(ISystem<LevelScene>[] systems, Map map) : IScene
     public void Render()
     {
         Raylib.BeginMode2D(_camera);
-            RenderFloor(0, 0);
             foreach (var entity in Map.Entities)
             {
                 var x = entity.Position.j * GameSystem.TileSize;
                 var y = entity.Position.i * GameSystem.TileSize;
+                Raylib.DrawRectangle(x, y, GameSystem.TileSize, GameSystem.TileSize, Color.Black);                
                 entity.Render(this, x, y);
             }
         Raylib.EndMode2D();
