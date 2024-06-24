@@ -18,7 +18,7 @@ static class GameSystem {
 
     static GameSystem()
     {
-        currentScene = MockLevel();
+        currentScene = new LevelBuilderScene();
     }
 
     private static LevelScene MockLevel()

@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
@@ -28,7 +29,7 @@ static class LevelLoader
 {
     private const string SampleLevel = """
         ---
-        map: >
+        - >
             w w w w w w w w w w,
             w p _ _ _ _ _ _ _ w,
             w _ _ _ _ _ _ _ _ w,
@@ -49,15 +50,16 @@ static class LevelLoader
     /// <returns>The full loaded map.</returns>
     public static Map Load(string yamlMap)
     {
-        yamlMap = SampleLevel;
+        if(string.IsNullOrEmpty(yamlMap)) yamlMap = SampleLevel;
+        Console.WriteLine(yamlMap);
         // Deserialize
         var deserializer = new DeserializerBuilder()
             .WithNamingConvention(UnderscoredNamingConvention.Instance)
             .Build();
 
-        var MapDefs = deserializer.Deserialize<Dictionary<string, string>>(yamlMap);
+        var MapDefs = deserializer.Deserialize<List<string>>(yamlMap);
 
-        string [] map_rows = MapDefs["map"].Split(", ");
+        string [] map_rows = MapDefs[0].Split(", ");
 
         List<string[]> tokenMap = [];
         
@@ -134,11 +136,13 @@ static class LevelLoader
                 }else {
                     line += '_';
                 }
-                line += ' ';
+                if(j < 9)
+                    line += ' ';
             }
             if(i < 9) line += ", ";
             fullParse += line;
         }
-        return fullParse;
+        List<string> m = [fullParse];
+        return new SerializerBuilder().Build().Serialize(m);
     }
 }
