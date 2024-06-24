@@ -85,6 +85,7 @@ static class LevelLoader
                     LevelToken.Water => new WaterEntity(position),
                     LevelToken.Grass => new Box(position),
                     LevelToken.Fire => new FireEntity(position),
+                    LevelToken.Goal => new Goal(position),
                     _ => null
                 };
                 if(entity != null) map_entities.Add(entity);
@@ -151,6 +152,7 @@ static class LevelLoader
                                 Element.Fire => LevelToken.Fire,
                                 _ => LevelToken.None
                             }]),
+                        "Goal" => LevelToken.Goal,
                         _ => "_"
                     };
                 }else {
@@ -163,5 +165,29 @@ static class LevelLoader
             fullParse += line;
         }
         return fullParse;
+    }
+
+    public static int StoreMap(Map map, string path, int index) {
+        string yamlMap = File.ReadAllText(path);
+        if(string.IsNullOrEmpty(yamlMap)) yamlMap = SampleLevel;
+        
+        // Deserialize
+        var deserializer = new DeserializerBuilder()
+            .WithNamingConvention(UnderscoredNamingConvention.Instance)
+            .Build();
+
+        List<string> mapList = deserializer.Deserialize<List<string>>(yamlMap);
+
+        if(index < 0 || index >= mapList.Count) {
+            index = mapList.Count;
+            mapList.Add("");
+        }
+
+        mapList[index] = ParseMap(map);
+
+        using var writer = new StreamWriter(path);
+        var serializer = new YamlDotNet.Serialization.Serializer();
+        serializer.Serialize(writer, mapList);
+        return 0;
     }
 }
