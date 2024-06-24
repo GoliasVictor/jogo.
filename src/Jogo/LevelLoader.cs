@@ -29,14 +29,15 @@ static class LevelLoader
     private const string SampleLevel = """
         ---
         map: >
-            w w w w w w w w w w
-            w p _ _ _ _ _ _ _ w
-            w _ _ _ _ _ _ _ _ w
-            w _ _ _ _ _ _ _ _ w
-            w _ _ _ _ _ _ _ _ w
-            w _ _ _ _ _ _ _ _ w
-            w _ _ _ _ _ _ _ _ w
-            w _ _ _ _ _ _ _ g w
+            w w w w w w w w w w,
+            w p _ _ _ _ _ _ _ w,
+            w _ _ _ _ _ _ _ _ w,
+            w _ _ _ _ _ _ _ _ w,
+            w _ _ _ _ _ _ _ _ w,
+            w _ _ _ _ _ _ _ _ w,
+            w _ _ _ _ _ _ _ _ w,
+            w _ _ _ _ _ _ _ _ w,
+            w _ _ _ _ _ _ _ g w,
             w w w w w w w w w w
         ...
         """;
@@ -48,7 +49,7 @@ static class LevelLoader
     /// <returns>The full loaded map.</returns>
     public static Map Load(string yamlMap)
     {
-        if(string.IsNullOrWhiteSpace(yamlMap)) yamlMap = SampleLevel;
+        yamlMap = SampleLevel;
         // Deserialize
         var deserializer = new DeserializerBuilder()
             .WithNamingConvention(UnderscoredNamingConvention.Instance)
@@ -56,35 +57,30 @@ static class LevelLoader
 
         var MapDefs = deserializer.Deserialize<Dictionary<string, string>>(yamlMap);
 
-        string [] map_rows = MapDefs["map"].Split("\n");
+        string [] map_rows = MapDefs["map"].Split(", ");
 
-        int rows = map_rows.Length;
-        int columns = 0;
-
-        string [][] tokenMap = new string[rows][];
+        List<string[]> tokenMap = [];
         
         foreach (string line in map_rows) {
-            string [] current_row = line.Split(' ');
-            int length = current_row.Length;
-
-            if (length > columns) {
-                columns = length;
-            }
-            tokenMap[Array.IndexOf(map_rows,line)] = current_row;
+            string [] current_row = line.Split();
+            tokenMap.Add(current_row);
+            foreach(string token in current_row) Console.WriteLine(token);
         }
 
         List<IEntity> map_entities = [];
 
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < tokenMap[i].Length; j++) {
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                Console.WriteLine(tokenMap[i][j]);
                 GridVec2 position = new GridVec2(i, j);
                 IEntity? entity = tokenMap[i][j][0] switch {
                     LevelToken.Player => new Player(position),
                     LevelToken.Door => new DoorEntity(position),
+                    LevelToken.Wall => new Wall(position),
                     LevelToken.Enemy => tokenMap[i][j][1] switch {
                         LevelToken.Water => new Enemy(position, Element.Water, tokenMap[i][j][2] == LevelToken.Horizontal),
-                        LevelToken.Grass => new Enemy(position, Element.Water, tokenMap[i][j][2] == LevelToken.Horizontal),
-                        LevelToken.Fire => new Enemy(position, Element.Water, tokenMap[i][j][2] == LevelToken.Horizontal),
+                        LevelToken.Grass => new Enemy(position, Element.Leaf, tokenMap[i][j][2] == LevelToken.Horizontal),
+                        LevelToken.Fire => new Enemy(position, Element.Fire, tokenMap[i][j][2] == LevelToken.Horizontal),
                         _ => null
                     },
                     LevelToken.Item => tokenMap[i][j][1] switch {
@@ -101,6 +97,6 @@ static class LevelLoader
                 if(entity != null) map_entities.Add(entity);
             }
         }
-        return new Map(rows, columns, map_entities);
+        return new Map(10, 10, map_entities);
     }
 }
