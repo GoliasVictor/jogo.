@@ -14,13 +14,11 @@ static class GameSystem {
     private static Color ClearColor = Color.Black;
     private static int targetFPS = 60;
     private static IScene currentScene;
-    private static IScene UIScene;
     private static Audio audio = new();
 
     static GameSystem()
     {
-        currentScene = MockLevel();
-        UIScene = new HUD();
+        currentScene = new MainMenuScene();
     }
 
     private static LevelScene MockLevel()
@@ -101,7 +99,7 @@ static class GameSystem {
             new Enemy(new GridVec2(6,3), Element.Water, true),
             new Enemy(new GridVec2(2,6), Element.Fire, true),
             new Player(new GridVec2(4,3)),
-        ]));
+        ]), true);
     }
 
     static void Main() {
@@ -137,7 +135,6 @@ static class GameSystem {
         if (currentScene is LevelScene level && level.Player.PlayerKilled){
             currentScene = MockLevel();
         }
-        UIScene.Update();
 
         UpdateUI();
     }
@@ -152,7 +149,6 @@ static class GameSystem {
         Raylib.BeginDrawing();
             Raylib.ClearBackground(ClearColor);
             RenderObjects();
-            UIScene.Render();
             RenderUI();
 
         Raylib.EndDrawing();

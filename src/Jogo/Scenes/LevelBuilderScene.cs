@@ -40,7 +40,7 @@ public class LevelBuilderScene : IScene
                 _mapBackup = LevelLoader.ParseMap(_map);
             }else{
                 _map = LevelLoader.LoadFromString(_mapBackup);
-                _testScene = new LevelScene([new TickUpdateSystem(), new CollisionSystem(), new ItemCollectionSystem()], _map);
+                _testScene = new LevelScene([new TickUpdateSystem(), new CollisionSystem(), new ItemCollectionSystem()], _map, false);
             }
             _isTesting = value;
         }
@@ -54,7 +54,7 @@ public class LevelBuilderScene : IScene
         this.index = index;
         _map = LevelLoader.LoadFromYaml(CustomLevelPath, index);
         _mapBackup = LevelLoader.ParseMap(_map);
-        _testScene = new LevelScene([new TickUpdateSystem(), new CollisionSystem(), new ItemCollectionSystem()], _map);
+        _testScene = new LevelScene([new TickUpdateSystem(), new CollisionSystem(), new ItemCollectionSystem()], _map, false);
     }
 
     public void Update()
@@ -64,7 +64,7 @@ public class LevelBuilderScene : IScene
         if(IsTesting) {
             _testScene.Update();
             if (_testScene.Player.PlayerKilled || _testScene.levelWon){
-                _testScene = new LevelScene([new TickUpdateSystem(), new CollisionSystem(), new ItemCollectionSystem()], _map);
+                _testScene = new LevelScene([new TickUpdateSystem(), new CollisionSystem(), new ItemCollectionSystem()], _map, false);
                 IsTesting = false;
             }
         }else {
