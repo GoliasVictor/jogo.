@@ -29,9 +29,13 @@ class Enemy : IEntity, IElemental
     }
     public void Render(LevelScene level, int x, int y)
     {
-      Vector2 v = new Vector2(x, y);
-      Color color = this.Element.GetColor();
-      Raylib.DrawTriangle(v + GameSystem.TileSize * new Vector2(0.5f, 0), v + GameSystem.TileSize * new Vector2(0, 1), v + GameSystem.TileSize * new Vector2(1, 1), color);
+        SpriteSlice sprite = Element switch {
+            Element.Fire => Sprite.FireEnemy,
+            Element.Leaf => Sprite.GrassEnemy,
+            Element.Water => Sprite.WaterEnemy,
+            _ => new(0, 0)
+        };
+        SpriteAtlas.DrawSprite(sprite, x, y);
     }
 
     public void TickUpdate(LevelScene level) {

@@ -12,7 +12,11 @@ using Raylib_cs;
 /// <param name="map">The map associated with the level scene.</param>
 class LevelScene(ISystem<LevelScene>[] systems, Map map) : IScene
 {
+    private const int blockMargin = 1;
+
     ISystem<LevelScene>[] systems = systems;
+
+    private Camera2D _camera = GenerateCamera(map);
 
     /// <summary>
     /// Gets the map associated with the level scene.
@@ -60,15 +64,15 @@ class LevelScene(ISystem<LevelScene>[] systems, Map map) : IScene
     /// </summary>
     public void Render()
     {
-        int start_x = GameSystem.DefaultWindowWidth / 2 - Map.Columns * GameSystem.TileSize / 2;
-        int start_y = GameSystem.DefaultWindowHeight / 2 - Map.Rows * GameSystem.TileSize / 2;
-        RenderFloor(start_x, start_y);
-        foreach (var entity in Map.Entities)
-        {
-            var x = start_x + entity.Position.j * GameSystem.TileSize;
-            var y = start_y + entity.Position.i * GameSystem.TileSize;
-            entity.Render(this, x, y);
-        }
+        Raylib.BeginMode2D(_camera);
+            foreach (var entity in Map.Entities.OrderBy(e => e.Layer).ToList())
+            {
+                var x = entity.Position.j * GameSystem.TileSize;
+                var y = entity.Position.i * GameSystem.TileSize;
+                Raylib.DrawRectangle(x, y, GameSystem.TileSize, GameSystem.TileSize, Color.Black);                
+                entity.Render(this, x, y);
+            }
+        Raylib.EndMode2D();
     }
     /// <summary>
     /// Destroys the specified entity. If the entity is a player, it calls the KillPlayer method on the player entity. 
@@ -83,6 +87,28 @@ class LevelScene(ISystem<LevelScene>[] systems, Map map) : IScene
             return;
         }
         this.Map.Entities.Remove(Entity);
+    }
+
+    public void ViewSizeChanged() {
+        _camera = GenerateCamera(Map);
+    }
+
+    /// <summary>
+    /// Creates a new Camera for the scene.
+    /// </summary>
+    private static Camera2D GenerateCamera(Map map) {
+        float scaleFactor = (float)Raylib.GetScreenHeight() / ((map.Rows + blockMargin * 2) * GameSystem.TileSize);
+        Vector2 position = new();
+        position.X = Raylib.GetScreenWidth() / (scaleFactor) - map.Rows * GameSystem.TileSize;
+        position.X *= -0.5f;
+        position.Y = -blockMargin * GameSystem.TileSize;
+        
+        return new() {
+            Target = position,
+            Zoom = scaleFactor,
+            Rotation = 0f,
+            Offset = Vector2.Zero
+        };
     }
 
 }

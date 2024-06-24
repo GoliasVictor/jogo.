@@ -22,7 +22,7 @@ class Box(GridVec2 position) : IEntity, IElemental
 
     public void Render(LevelScene level, int x, int y)
     {
-        Raylib.DrawRectangle(x, y, GameSystem.TileSize, GameSystem.TileSize, Color.Violet);
+        SpriteAtlas.DrawSprite(Sprite.GrassTile, x, y);
     }
 
     public void Collide(LevelScene level, IEntity entity)

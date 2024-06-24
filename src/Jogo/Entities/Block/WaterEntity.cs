@@ -19,7 +19,7 @@ class WaterEntity(GridVec2 position) : IEntity, IElemental
 
     public void Render(LevelScene level, int x, int y)
     {
-        Raylib.DrawRectangle(x, y, GameSystem.TileSize, GameSystem.TileSize, Color.SkyBlue);
+        SpriteAtlas.DrawSprite(Sprite.WaterTile, x, y);
     }
 
 }

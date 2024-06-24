@@ -20,16 +20,15 @@ class ElementChangerEntity(GridVec2 position, Element element) : IItem
     public void Render(LevelScene level, int x, int y)
     {
 
-        Color color = this.Element switch
+        SpriteSlice sprite = this.Element switch
         {
-            Element.Neutral => Color.White,
-            Element.Fire => Color.Red,
-            Element.Leaf => Color.Green,
-            Element.Water => Color.Blue,
-            _ => Color.White
+            Element.Fire => Sprite.FireItem,
+            Element.Leaf => Sprite.GrassItem,
+            Element.Water => Sprite.WaterItem,
+            _ => new(0, 0)
         };
 
-        Raylib.DrawRectangle(x + 8, y + 8, GameSystem.TileSize - 16, GameSystem.TileSize - 16, color);
+        SpriteAtlas.DrawSprite(sprite, x, y);
     }
 
     public void Utilize(LevelScene level, Player player)

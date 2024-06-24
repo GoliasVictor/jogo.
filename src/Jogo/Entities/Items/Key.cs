@@ -21,7 +21,7 @@ class Key(GridVec2 position) : IItem
 
 	public void Render(LevelScene level, int x, int y)
 	{
-		Raylib.DrawRectangle(x + 8, y + 8, GameSystem.TileSize - 16, GameSystem.TileSize - 16, Color.Yellow);
+		SpriteAtlas.DrawSprite(Sprite.Key, x, y);
 	}
 
 	/// <summary>
