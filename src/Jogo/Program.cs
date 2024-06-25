@@ -57,7 +57,9 @@ static class GameSystem {
                     Update();
                     Render();
                 } 
-                catch {
+                catch(Exception e) {
+                    Console.WriteLine("Aconteceu algum erro no jogo, se possivel reporte para os mantenedores. Motivo do erro:");
+                    Console.WriteLine(e.ToString());
                     currentScene = new ErrorScene("!! Aconteceu algum erro no jogo !!\n\nse possivel reporte para os mantenedores.");
                 }
                 if (Raylib.WindowShouldClose())
@@ -66,8 +68,9 @@ static class GameSystem {
 
             Raylib.CloseAudioDevice();
             Raylib.CloseWindow();
-        } catch {
-            Console.WriteLine("Aconteceu algum erro no jogo, se possivel reporte para os mantenedores.");
+        } catch(Exception e) {
+            Console.WriteLine("Aconteceu algum erro no jogo, se possivel reporte para os mantenedores. Motivo do erro:");
+            Console.WriteLine(e.ToString());
         }
     }
 
