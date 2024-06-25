@@ -1,8 +1,14 @@
 using System.Numerics;
 using Raylib_cs;
 
+/// <summary>
+/// Game's main menu.
+/// </summary>
 class MainMenuScene : UIScene
 {
+    /// <summary>
+    /// Generates new UI for the Main menu.
+    /// </summary>
     public MainMenuScene () : base() {
         Vector2 ContainerSize = new Vector2(GameSystem.DefaultWindowWidth, GameSystem.DefaultWindowHeight);
         Button newGameButton = MenuButtonText("Novo Jogo");
@@ -50,7 +56,11 @@ class MainMenuScene : UIScene
         GameSystem.ShouldExit = true;
     }
 
-
+    /// <summary>
+    /// Generates a large button with text.
+    /// </summary>
+    /// <param name="Text"></param>
+    /// <returns></returns>
     private Button MenuButtonText(string Text){
         Vector2 bsize =  new (220, 30);
         return new Button(
