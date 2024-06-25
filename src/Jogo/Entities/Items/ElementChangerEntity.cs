@@ -48,6 +48,7 @@ class ElementChangerEntity(GridVec2 position, Element element) : IItem
                 Audio.PlaySound(IAudio.SoundEffect.Water, true);
                 break;
             case Element.Leaf:
+                Audio.PlaySound(IAudio.SoundEffect.Grass, true);
                 break;
             case Element.Fire:
                 Audio.PlaySound(IAudio.SoundEffect.Fire, true);
