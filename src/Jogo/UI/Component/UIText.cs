@@ -16,7 +16,7 @@ class UIText(string text, Color color, int fontSize = 16, int spacing = 1, Conta
     }
     public override void Render()
     {
-        var position = Parent.GetPosition(this);
+        var position = GetPositionChild();
         Raylib.DrawTextEx(Raylib.GetFontDefault(), Text, position, FontSize, Spacing, color);
 
     }

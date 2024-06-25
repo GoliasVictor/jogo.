@@ -18,7 +18,6 @@ enum HorizontalAlign {
 class AlignedPositionContainer : UnitaryContainer
 
 {
-    Vector2 Position;
     VerticalAlign verticalAlign;
     HorizontalAlign horizontalAlign;
     public override Vector2 Size {get; }
@@ -31,7 +30,7 @@ class AlignedPositionContainer : UnitaryContainer
 
     public override Vector2 GetPosition(UIComponent component)
     {
-        var origin = Parent.GetPosition(this);
+        var origin = GetPositionChild();
         var psize = this.Size;
         var csize = Component.Size;
         var x = horizontalAlign switch

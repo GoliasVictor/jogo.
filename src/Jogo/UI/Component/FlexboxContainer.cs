@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Numerics;
 
 
@@ -24,13 +25,14 @@ class FlexboxContainer : Container
     {
         Axis.Horizontal => Axis.Vertical,
         Axis.Vertical => Axis.Horizontal,
+        _ => throw new UnreachableException(),
     });
     public JustifyMode JustifyMain;
     public JustifyMode JustifySecondary;
 
     public float Gap;
 
-    public FlexboxContainer(Vector2 size,Axis axis,float gap = 0, JustifyMode justifyMain = default, JustifyMode justifySecondary = default, IEnumerable<UIComponent>? components = null, Container parent = null) : base(parent)
+    public FlexboxContainer(Vector2 size,Axis axis,float gap = 0, JustifyMode justifyMain = default, JustifyMode justifySecondary = default, IEnumerable<UIComponent>? components = null, Container? parent = null) : base(parent)
     {
         this.Parent = parent;
         this.Axis = axis;
@@ -58,7 +60,7 @@ class FlexboxContainer : Container
     }
     public override Vector2 GetPosition(UIComponent component)
     {
-        var origin = Parent.GetPosition(this);
+        var origin = GetPositionChild();
         var idx = Components.IndexOf(component);
         float secondarySize = 0;
         var pos = new Vector2(0, 0);
