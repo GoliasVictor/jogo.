@@ -74,6 +74,7 @@ class Player(GridVec2 position) : IEntity, IElemental
         }
         if (level.Map[newPos].Any(e => !e.CanOverlapWith(level, player)))
             return;
+        Audio.PlaySound(IAudio.SoundEffect.Step, true);
         player.Position = newPos;
     }
 }
