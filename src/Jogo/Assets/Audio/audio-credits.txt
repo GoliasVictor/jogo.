@@ -4,6 +4,7 @@ sfx-fire = https://opengameart.org/content/spell-4-fire
 sfx-water = https://opengameart.org/content/water-splashes
 sfx-push-block = https://opengameart.org/content/push-stone-boulder-yo-frankie
 sfx-level-complete = https://opengameart.org/content/bell-arpeggio-24
+sfx-key = https://opengameart.org/content/soundpack-02
 
 mfx-boss = https://opengameart.org/content/boss-battle-3-8-bit-re-upload
 mfx-puzzle = https://opengameart.org/content/you-and-i

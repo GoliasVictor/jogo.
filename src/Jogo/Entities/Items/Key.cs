@@ -1,3 +1,4 @@
+using Jogo.Systems;
 using Raylib_cs;
 
 /// <summary>
@@ -32,5 +33,6 @@ class Key(GridVec2 position) : IItem
 	public void Utilize(LevelScene level, Player player)
 	{
 		level.Map.Entities.RemoveAll(e => e is DoorEntity);
+		Audio.PlaySound(IAudio.SoundEffect.Key, true);
 	}
 }

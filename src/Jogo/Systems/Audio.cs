@@ -45,6 +45,9 @@ namespace Jogo.Systems
                 case SoundEffect.LevelComplete:
                     SoundFileName = "sfx-level-complete.wav";
                     break;
+                case SoundEffect.Key:
+                    SoundFileName = "sfx-key.wav";
+                    break;
                 default:
                     SoundFileName = "sfx-step.wav";
                     break;

@@ -29,7 +29,8 @@ namespace Jogo.Systems
             Fire,
             Water,
             Wall,
-            LevelComplete
+            LevelComplete,
+            Key
         }
 
         // public Music GetMusic(MusicEffect music);
