@@ -31,7 +31,8 @@ namespace Jogo.Systems
             Wall,
             LevelComplete,
             Key,
-            Death
+            Death,
+            Grass
         }
 
         // public Music GetMusic(MusicEffect music);

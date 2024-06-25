@@ -31,6 +31,9 @@
     <None Update="Assets\Audio\sfx-fire.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Assets\Audio\sfx-grass.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Assets\Audio\sfx-key.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
