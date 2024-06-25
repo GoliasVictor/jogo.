@@ -11,10 +11,9 @@ using Raylib_cs;
 /// <param name="systems">The systems associated with the level scene.</param>
 /// <param name="map">The map associated with the level scene.</param>
 /// <param name="UIActive">State of the scene's UI.</param>
-class LevelScene(ISystem<LevelScene>[] systems, Map map, bool UIActive) : IScene
+class LevelScene(ISystem<LevelScene>[] systems, Map map) : IScene
 {
     private const int blockMargin = 1;
-    private readonly bool _uiActive = UIActive;
     private HUD _hud = new HUD();
 
     ISystem<LevelScene>[] systems = systems;
@@ -42,7 +41,6 @@ class LevelScene(ISystem<LevelScene>[] systems, Map map, bool UIActive) : IScene
     {
         foreach (var system in systems)
             system.Update(this);
-        if(_uiActive) _hud.Update();
     }
 
     /// <summary>
@@ -78,7 +76,6 @@ class LevelScene(ISystem<LevelScene>[] systems, Map map, bool UIActive) : IScene
                 entity.Render(this, x, y);
             }
         Raylib.EndMode2D();
-        if(_uiActive) _hud.Render();
     }
     /// <summary>
     /// Destroys the specified entity. If the entity is a player, it calls the KillPlayer method on the player entity. 

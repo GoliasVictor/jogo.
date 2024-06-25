@@ -1,18 +1,34 @@
+
 public class LevelManagerScene : IScene
 {
     private const string LevelListPath = @"Levels/custom-levels.yaml";
     private LevelScene currentLevel;
     private int levelIndex;
     private readonly int levelCount = LevelLoader.GetLevelCount(LevelListPath);
+    private HUD _hud;
 
     public LevelManagerScene(uint index) {
         levelIndex = (int) index;
-        currentLevel = new LevelScene([new TickUpdateSystem(), new CollisionSystem(), new ItemCollectionSystem()], LevelLoader.LoadFromYaml(LevelListPath, levelIndex), true);
+        currentLevel = new LevelScene([new TickUpdateSystem(), new CollisionSystem(), new ItemCollectionSystem()], LevelLoader.LoadFromYaml(LevelListPath, levelIndex));
+        _hud = new HUD();
+        _hud.MenuButton.ButtonPressed += OnMenuButtonPressed;
+        _hud.RestartButton.ButtonPressed += OnRestartButtonPressed;
+    }
+
+    private void OnRestartButtonPressed(object? sender, EventArgs e)
+    {
+        SetLevel((uint) levelIndex);
+    }
+
+    private void OnMenuButtonPressed(object? sender, EventArgs e)
+    {
+        GameSystem.currentScene = new MainMenuScene();
     }
 
     public void Render()
     {
         currentLevel.Render();
+        _hud.Render();
     }
 
     public void Update()
@@ -24,6 +40,7 @@ public class LevelManagerScene : IScene
         }else {
             currentLevel.Update();
         }
+        _hud.Update();
     }
 
     private void SetLevel(uint index) {
@@ -33,6 +50,6 @@ public class LevelManagerScene : IScene
         }
         levelIndex = (int) index;
 
-        currentLevel = new LevelScene([new TickUpdateSystem(), new CollisionSystem(), new ItemCollectionSystem()], LevelLoader.LoadFromYaml(LevelListPath, levelIndex), true);
+        currentLevel = new LevelScene([new TickUpdateSystem(), new CollisionSystem(), new ItemCollectionSystem()], LevelLoader.LoadFromYaml(LevelListPath, levelIndex));
     }
 }

@@ -100,7 +100,7 @@ static class GameSystem {
             new Enemy(new GridVec2(6,3), Element.Water, true),
             new Enemy(new GridVec2(2,6), Element.Fire, true),
             new Player(new GridVec2(4,3)),
-        ]), true);
+        ]));
     }
 
     static void Main() {
