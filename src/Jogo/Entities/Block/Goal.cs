@@ -1,3 +1,5 @@
+using Jogo.Systems;
+
 /// <summary>
 /// Represents the levels goal.
 /// </summary>
@@ -9,6 +11,7 @@ class Goal(GridVec2 position) : IEntity
 {
     public GridVec2 Position { get; set; } = position;
     public Layer Layer => Layer.Block;
+    private Audio audio = new Audio();
 
     public bool CanOverlapWith(LevelScene level, IEntity entity)
     {
@@ -25,6 +28,7 @@ class Goal(GridVec2 position) : IEntity
         if (entity is Player)
         {
             level.levelWon = true;
+            Audio.PlaySound(IAudio.SoundEffect.LevelComplete, true);
         }
     }
 }
