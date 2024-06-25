@@ -1,6 +1,9 @@
 
 using Raylib_cs;
 
+/// <summary>
+/// Handles levels, responsible for making the transition between the LevelScenes.
+/// </summary>
 public class LevelManagerScene : IScene
 {
     private const string LevelListPath = @"Levels/custom-levels.yaml";
@@ -9,6 +12,10 @@ public class LevelManagerScene : IScene
     private readonly int levelCount = LevelLoader.GetLevelCount(LevelListPath);
     private HUD _hud;
 
+    /// <summary>
+    /// Generates a new LevelManagerScene.
+    /// </summary>
+    /// <param name="index">Index of the first level to be shown.</param>
     public LevelManagerScene(uint index) {
         levelIndex = (int) index;
         currentLevel = new LevelScene([new TickUpdateSystem(), new CollisionSystem(), new ItemCollectionSystem()], LevelLoader.LoadFromYaml(LevelListPath, levelIndex));
@@ -45,6 +52,10 @@ public class LevelManagerScene : IScene
         _hud.Update();
     }
 
+    /// <summary>
+    /// Loads and sets the next level.
+    /// </summary>
+    /// <param name="index">Index of the level to be set.</param>
     private void SetLevel(uint index) {
         if(index >= levelCount) {
             GameSystem.currentScene = new MainMenuScene();

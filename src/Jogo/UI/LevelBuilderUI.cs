@@ -1,5 +1,8 @@
 using System.Numerics;
 
+/// <summary>
+/// User Interface for <seealso cref="LevelBuilderScene"/>.
+/// </summary>
 class LevelBuilderUI : UIScene
 {
     private LevelBuilderScene levelBuilder;
@@ -12,6 +15,10 @@ class LevelBuilderUI : UIScene
 
     private UIText testButtonText;
 
+    /// <summary>
+    /// Generates new UI elements for the Level Builder.
+    /// </summary>
+    /// <param name="levelBuilder">The LevelBuilder to be assigned.</param>
     public LevelBuilderUI(LevelBuilderScene levelBuilder)
     {
         this.levelBuilder = levelBuilder;
