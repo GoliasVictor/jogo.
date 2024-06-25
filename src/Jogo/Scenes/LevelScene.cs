@@ -10,9 +10,11 @@ using Raylib_cs;
 /// </remarks>
 /// <param name="systems">The systems associated with the level scene.</param>
 /// <param name="map">The map associated with the level scene.</param>
+/// <param name="UIActive">State of the scene's UI.</param>
 class LevelScene(ISystem<LevelScene>[] systems, Map map) : IScene
 {
     private const int blockMargin = 1;
+    private HUD _hud = new HUD();
 
     ISystem<LevelScene>[] systems = systems;
 

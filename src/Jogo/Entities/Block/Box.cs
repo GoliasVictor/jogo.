@@ -1,5 +1,6 @@
 using System.Numerics;
 using System.Security.Cryptography.X509Certificates;
+using Jogo.Systems;
 using Raylib_cs;
 
 /// <summary>
@@ -59,6 +60,7 @@ class Box(GridVec2 position) : IEntity, IElemental
                     level.DestroyEntity(this);
                     return;
                 }
+            Audio.PlaySound(IAudio.SoundEffect.PushBlock, true);
             }
             if (level.Map[newPos].Any(e => !e.CanOverlapWith(level, this)))
                 return;

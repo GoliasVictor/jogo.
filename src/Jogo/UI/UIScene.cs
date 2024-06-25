@@ -3,7 +3,7 @@ using Raylib_cs;
 class UIScene(Container root) : IScene
 {
     public Container root = root;
-    public static UIComponent ButtonText(string Text){
+    public static Button ButtonText(string Text){
         Vector2 bsize =  new (100, 30);
         return new Button(
             color: Color.Red,

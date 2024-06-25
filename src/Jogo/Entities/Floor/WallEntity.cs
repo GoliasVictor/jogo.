@@ -1,3 +1,4 @@
+using Jogo.Systems;
 using Raylib_cs;
 
 /// <summary>
@@ -16,5 +17,10 @@ class Wall(GridVec2 position) : IEntity
     public void Render(LevelScene level, int x, int y)
     {
         SpriteAtlas.DrawSprite(Sprite.Wall, x, y);
+    }
+
+    void Collide(LevelScene level, IEntity entity)
+    {
+        Audio.PlaySound(IAudio.SoundEffect.Wall, true);
     }
 }

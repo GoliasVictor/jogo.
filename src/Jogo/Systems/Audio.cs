@@ -45,6 +45,12 @@ namespace Jogo.Systems
                 case SoundEffect.LevelComplete:
                     SoundFileName = "sfx-level-complete.wav";
                     break;
+                case SoundEffect.Key:
+                    SoundFileName = "sfx-key.wav";
+                    break;
+                case SoundEffect.Death:
+                    SoundFileName = "sfx-death.wav";
+                    break;
                 default:
                     SoundFileName = "sfx-step.wav";
                     break;
@@ -52,6 +58,38 @@ namespace Jogo.Systems
             Raylib.UnloadSound(currentSound);
             currentSound = Raylib.LoadSound(path + SoundFileName);
             Raylib.PlaySound(currentSound);
+        }
+
+        public static void PlaySound(SoundEffect soundEffect, bool noClass)
+        {
+            string SoundFileName;
+            string path = "Assets/Audio/";
+            switch (soundEffect)
+            {
+                case SoundEffect.Step:
+                    SoundFileName = "sfx-step.wav";
+                    break;
+                case SoundEffect.PushBlock:
+                    SoundFileName = "sfx-push-block.wav";
+                    break;
+                case SoundEffect.Fire:
+                    SoundFileName = "sfx-fire.wav";
+                    break;
+                case SoundEffect.Water:
+                    SoundFileName = "sfx-water.wav";
+                    break;
+                case SoundEffect.Wall:
+                    SoundFileName = "sfx-wall.wav";
+                    break;
+                case SoundEffect.LevelComplete:
+                    SoundFileName = "sfx-level-complete.wav";
+                    break;
+                default:
+                    SoundFileName = "sfx-step.wav";
+                    break;
+            };
+            Sound sound = Raylib.LoadSound(path + SoundFileName);
+            Raylib.PlaySound(sound);
         }
 
         /// <summary>
@@ -96,6 +134,7 @@ namespace Jogo.Systems
             this.currentMusic = GetMusic(song);
             if (!Raylib.IsMusicStreamPlaying(this.currentMusic))
                 Raylib.PlayMusicStream(this.currentMusic);
+            Raylib.SetMusicVolume(this.currentMusic, 0.4f);
             this.Update();
         }
 

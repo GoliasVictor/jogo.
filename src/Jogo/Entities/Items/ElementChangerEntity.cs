@@ -1,4 +1,5 @@
 using Raylib_cs;
+using Jogo.Systems;
 
 
 /// <summary>
@@ -34,5 +35,25 @@ class ElementChangerEntity(GridVec2 position, Element element) : IItem
     public void Utilize(LevelScene level, Player player)
     {
         player.Element = this.Element;
+        this.PlaySound();
+    }
+
+    private void PlaySound()
+    {
+        switch (this.Element)
+        {
+            case Element.Neutral:
+                break;
+            case Element.Water:
+                Audio.PlaySound(IAudio.SoundEffect.Water, true);
+                break;
+            case Element.Leaf:
+                break;
+            case Element.Fire:
+                Audio.PlaySound(IAudio.SoundEffect.Fire, true);
+                break;
+            default:
+                break;
+        }
     }
 }

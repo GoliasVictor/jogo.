@@ -2,7 +2,11 @@ using System.Numerics;
 using Raylib_cs;
 
 class HUD : UIScene {
+    public Button RestartButton = ButtonText("Reiniciar");
+    public Button MenuButton = ButtonText("Menu");
+
     public HUD() : base((Container)null!) {
+        
         Vector2 ContainerSize = new Vector2(GameSystem.DefaultWindowWidth, GameSystem.DefaultWindowHeight);
         Vector2 size = new Vector2(80, 40);
         Vector2 bsize =  new (100, 30);
@@ -12,8 +16,8 @@ class HUD : UIScene {
                 justifyMain: JustifyMode.End,
                 gap: 10,
                 components: [
-                    ButtonText("Reiniciar"),
-                    ButtonText("Menu"),
+                    RestartButton,
+                    MenuButton
                 ]
             );
         this.root = new FixedPositionContainer(
