@@ -42,10 +42,11 @@ static class GameSystem {
             {
                 SpriteAtlas.LoadAtlas();
             }
-            catch(ResourceLoadException _)
+            catch(ResourceLoadException e)
             {
                 currentScene = new ErrorScene("!! ERRO !!\n\nVerifique se os arquivos do jogo\n\nestão presentes no local certo.");
-                Console.WriteLine("Falha ao carregar os sprites, verifique se os arquivos do jogo estão presentes no local certo.");
+                Console.WriteLine("Falha ao carregar os sprites, verifique se os arquivos do jogo estão presentes no local certo. Motivo do erro:");
+                Console.WriteLine(e.ToString());
             }
             
             
