@@ -15,5 +15,4 @@ class FixedPositionContainer : UnitaryContainer
         var origin = Parent?.GetPosition(this) ?? Vector2.Zero;
         return origin + Position;
     }
-
 }
