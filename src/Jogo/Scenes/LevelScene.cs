@@ -101,6 +101,7 @@ class LevelScene(ISystem<LevelScene>[] systems, Map map) : IScene
     /// </summary>
     private static Camera2D GenerateCamera(Map map) {
         float scaleFactor = (float)Raylib.GetScreenHeight() / ((map.Rows + blockMargin * 2) * GameSystem.TileSize);
+        scaleFactor = (float) Math.Floor(scaleFactor);
         Vector2 position = new();
         position.X = Raylib.GetScreenWidth() / (scaleFactor) - map.Rows * GameSystem.TileSize;
         position.X *= -0.5f;
