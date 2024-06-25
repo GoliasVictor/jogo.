@@ -9,7 +9,7 @@ class MainMenuScene : UIScene
     /// <summary>
     /// Generates new UI for the Main menu.
     /// </summary>
-    public MainMenuScene () : base() {
+    public MainMenuScene () : base(null!) {
         Vector2 ContainerSize = new Vector2(GameSystem.DefaultWindowWidth, GameSystem.DefaultWindowHeight);
         Button newGameButton = MenuButtonText("Novo Jogo");
         Button levelBuilderButton = MenuButtonText("Construtor de níveis");
@@ -64,7 +64,6 @@ class MainMenuScene : UIScene
     private Button MenuButtonText(string Text){
         Vector2 bsize =  new (220, 30);
         return new Button(
-            size: bsize,
             color: Color.Red,
             hoverColor: Color.Brown,
             component: new AlignedPositionContainer(

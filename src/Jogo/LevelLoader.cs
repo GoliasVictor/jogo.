@@ -169,7 +169,13 @@ static class LevelLoader
     }
 
     public static int StoreMap(Map map, string path, int index) {
-        string yamlMap = File.ReadAllText(path);
+        string yamlMap;
+        try{
+            yamlMap = File.ReadAllText(path);
+        }
+        catch{
+            yamlMap = "";
+        }
         if(string.IsNullOrEmpty(yamlMap)) yamlMap = SampleLevel;
         
         // Deserialize

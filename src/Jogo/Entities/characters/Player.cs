@@ -66,7 +66,7 @@ class Player(GridVec2 position) : IEntity, IElemental
         foreach (var entity in level.Map[newPos].ToList())
         {
             entity.Collide(level, player);
-            if (entity is IElemental elemental)
+            if (entity is IElemental elemental && entity is not Box)
             {
                 ElementalConflitSolver.Solve(level, player, elemental);
             }

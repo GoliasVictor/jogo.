@@ -19,7 +19,7 @@ class LevelBuilderUI : UIScene
     /// Generates new UI elements for the Level Builder.
     /// </summary>
     /// <param name="levelBuilder">The LevelBuilder to be assigned.</param>
-    public LevelBuilderUI(LevelBuilderScene levelBuilder)
+    public LevelBuilderUI(LevelBuilderScene levelBuilder) : base(null!)
     {
         this.levelBuilder = levelBuilder;
         Vector2 ContainerSize = new Vector2(GameSystem.DefaultWindowWidth, GameSystem.DefaultWindowHeight);
