@@ -189,7 +189,7 @@ static class LevelLoader
         using var writer = new StreamWriter(path);
         var serializer = new YamlDotNet.Serialization.Serializer();
         serializer.Serialize(writer, mapList);
-        return 0;
+        return index;
     }
 
     /// <summary>

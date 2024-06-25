@@ -35,6 +35,7 @@ public class LevelBuilderScene : IScene
     private int index {
         get => _index;
         set {
+            if(value == _index || value < 0) return;
             int levelCount = LevelLoader.GetLevelCount(CustomLevelPath);
             if(value > levelCount)
                 value = levelCount;
