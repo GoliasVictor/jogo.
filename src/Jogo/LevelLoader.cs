@@ -191,4 +191,21 @@ static class LevelLoader
         serializer.Serialize(writer, mapList);
         return 0;
     }
+
+    /// <summary>
+    /// Reads a .yaml file and counts the number of levels stored in it.
+    /// </summary>
+    /// <param name="path">The YAML file path.</param>
+    /// <returns>The number of levels in the file.</returns>
+    public static int GetLevelCount(string path) {
+        string yamlMap = File.ReadAllText(path);
+        if(string.IsNullOrEmpty(yamlMap))
+            return 0;
+        // Deserialize
+        var deserializer = new DeserializerBuilder()
+            .WithNamingConvention(UnderscoredNamingConvention.Instance)
+            .Build();
+
+        return deserializer.Deserialize<List<string>>(yamlMap).Count();
+    }
 }

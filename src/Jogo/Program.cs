@@ -13,8 +13,8 @@ static class GameSystem {
 
     private static Color ClearColor = Color.Black;
     private static int targetFPS = 60;
-    private static IScene currentScene;
     private static Audio audio = new();
+    public static IScene currentScene;
     public static bool ShouldExit = false;
 
     static GameSystem()

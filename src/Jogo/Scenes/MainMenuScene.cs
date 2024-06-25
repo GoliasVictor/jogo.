@@ -39,7 +39,7 @@ class MainMenuScene : UIScene
 
     private void OnPlayButtonPressed(object? sender, EventArgs e)
     {
-        Console.WriteLine("Pressed Play");
+        GameSystem.currentScene = new LevelManagerScene(0);
     }
 
     private void OnLevelBuilderButtonPressed(object? sender, EventArgs e)
