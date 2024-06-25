@@ -30,7 +30,8 @@ namespace Jogo.Systems
             Water,
             Wall,
             LevelComplete,
-            Key
+            Key,
+            Death
         }
 
         // public Music GetMusic(MusicEffect music);

@@ -48,6 +48,9 @@ namespace Jogo.Systems
                 case SoundEffect.Key:
                     SoundFileName = "sfx-key.wav";
                     break;
+                case SoundEffect.Death:
+                    SoundFileName = "sfx-death.wav";
+                    break;
                 default:
                     SoundFileName = "sfx-step.wav";
                     break;

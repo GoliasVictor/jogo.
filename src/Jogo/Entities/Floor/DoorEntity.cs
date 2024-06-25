@@ -1,3 +1,4 @@
+using Jogo.Systems;
 using Raylib_cs;
 /// <summary>
 /// It represents a door, no object is stopped, and when a key is picked up it is destroyed.
@@ -16,5 +17,10 @@ class DoorEntity(GridVec2 position) : IEntity
     public void Render(LevelScene level, int x, int y)
     {
         SpriteAtlas.DrawSprite(Sprite.Door, x, y);
+    }
+
+    void Collide(LevelScene level, IEntity entity)
+    {
+        Audio.PlaySound(IAudio.SoundEffect.Wall, true);
     }
 }

@@ -1,3 +1,4 @@
+using Jogo.Systems;
 using Raylib_cs;
 
 /// <summary>
@@ -49,6 +50,7 @@ class Player(GridVec2 position) : IEntity, IElemental
     public void KillPlayer()
     {
         this.PlayerKilled = true;
+        Audio.PlaySound(IAudio.SoundEffect.Death, true);
     }
 
     public void Move(LevelScene level, GridVec2 direction)

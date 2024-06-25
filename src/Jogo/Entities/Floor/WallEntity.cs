@@ -21,6 +21,6 @@ class Wall(GridVec2 position) : IEntity
 
     void Collide(LevelScene level, IEntity entity)
     {
-        Audio.PlaySound(IAudio.SoundEffect.Wall, true)
+        Audio.PlaySound(IAudio.SoundEffect.Wall, true);
     }
 }
