@@ -1,12 +1,11 @@
 using System.Numerics;
 using Raylib_cs;
-class UIScene : IScene
+class UIScene(Container root) : IScene
 {
-    public Container root;
+    public Container root = root;
     public static Button ButtonText(string Text){
         Vector2 bsize =  new (100, 30);
         return new Button(
-            size: bsize,
             color: Color.Red,
             hoverColor: Color.Brown,
             component: new AlignedPositionContainer(
@@ -16,10 +15,6 @@ class UIScene : IScene
                 component: new UIText(Text, Color.White, 20)
             )
         );
-    }
-    public UIScene()
-    {
-       
     }
 
     public void Render()

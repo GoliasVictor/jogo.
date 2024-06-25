@@ -10,8 +10,7 @@ class MarginContainer : UnitaryContainer  {
 
     public override Vector2 GetPosition(UIComponent component)
     {
-        var origin = Parent?.GetPosition(this) ?? Vector2.Zero;
-        return Vector2.One*Margin + origin ;
+        return GetPositionChild() + Vector2.One*Margin  ;
     }
 
 }

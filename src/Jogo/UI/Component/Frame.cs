@@ -17,7 +17,7 @@ class Frame : UnitaryContainer
 
     public override Vector2 GetPosition(UIComponent component)
     {
-        return Parent.GetPosition(this) + new Vector2(BorderThick, BorderThick) ;
+        return GetPositionChild() + new Vector2(BorderThick, BorderThick) ;
     }
 
     public override List<UIComponent> GetChildren()
@@ -27,7 +27,7 @@ class Frame : UnitaryContainer
 
     public override void Render()
     {
-        Vector2 pos = Parent.GetPosition(this);
+        Vector2 pos = GetPositionChild();
         Raylib.DrawRectangle((int)pos.X, (int)pos.Y, (int)Size.X, (int)Size.Y, BackgroundColor);
         Rectangle rect = new((int)pos.X, (int)pos.Y, (int)Size.X, (int)Size.Y);
         Raylib.DrawRectangleLinesEx(rect, BorderThick, BorderColor);

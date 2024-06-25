@@ -19,7 +19,12 @@ public static class SpriteAtlas {
     /// Loads all sprite slices from the static Sprite class into atlas.
     /// </summary>
     public static void LoadAtlas() {
+
+        if(!File.Exists(SourcePath)) {
+            throw new FileLoadException($"File not found: {SourcePath}");
+        }
         Image fullImage = Raylib.LoadImage(SourcePath);
+        
         foreach(FieldInfo fi in typeof(Sprite).GetFields(BindingFlags.Static | BindingFlags.Public)) {
             var value = fi.GetValue(null);
             if(value == null) continue;
