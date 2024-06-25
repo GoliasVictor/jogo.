@@ -42,6 +42,12 @@ namespace Jogo.Systems
         /// <returns>AudioStream</returns>
         public void  PlaySound(SoundEffect sound);
 
+        /// <summary>
+        /// Method to play sounds without an object
+        /// </summary>
+        /// <param name="soundEffect"></param>
+        /// <param name="noClass"></param>
+        public static void PlaySound(SoundEffect soundEffect, bool noClass) { }
 
         /// <summary>
         /// <param>Updates Music Stream buffer and starts to play if it isn't being played</param>

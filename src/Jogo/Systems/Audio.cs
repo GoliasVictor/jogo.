@@ -54,6 +54,38 @@ namespace Jogo.Systems
             Raylib.PlaySound(currentSound);
         }
 
+        public static void PlaySound(SoundEffect soundEffect, bool noClass)
+        {
+            string SoundFileName;
+            string path = "Assets/Audio/";
+            switch (soundEffect)
+            {
+                case SoundEffect.Step:
+                    SoundFileName = "sfx-step.wav";
+                    break;
+                case SoundEffect.PushBlock:
+                    SoundFileName = "sfx-push-block.wav";
+                    break;
+                case SoundEffect.Fire:
+                    SoundFileName = "sfx-fire.wav";
+                    break;
+                case SoundEffect.Water:
+                    SoundFileName = "sfx-water.wav";
+                    break;
+                case SoundEffect.Wall:
+                    SoundFileName = "sfx-wall.wav";
+                    break;
+                case SoundEffect.LevelComplete:
+                    SoundFileName = "sfx-level-complete.wav";
+                    break;
+                default:
+                    SoundFileName = "sfx-step.wav";
+                    break;
+            };
+            Sound sound = Raylib.LoadSound(path + SoundFileName);
+            Raylib.PlaySound(sound);
+        }
+
         /// <summary>
         /// <param>Used to get AudioStream from desired music</param>
         /// </summary>
