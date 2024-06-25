@@ -13,14 +13,13 @@ static class GameSystem {
 
     private static Color ClearColor = Color.Black;
     private static int targetFPS = 60;
-    private static IScene currentScene;
-    private static IScene UIScene;
     private static Audio audio = new();
+    public static IScene currentScene;
+    public static bool ShouldExit = false;
 
     static GameSystem()
     {
-        currentScene = MockLevel();
-        UIScene = new HUD();
+        currentScene = new MainMenuScene();
     }
 
     private static LevelScene MockLevel()
@@ -106,6 +105,7 @@ static class GameSystem {
 
     static void Main() {
         Raylib.InitWindow(DefaultWindowWidth, DefaultWindowHeight, DefaultWindowName);
+        Raylib.SetExitKey(KeyboardKey.Null);
 
         currentScene.ViewSizeChanged();
 
@@ -115,10 +115,13 @@ static class GameSystem {
 
         SpriteAtlas.LoadAtlas();
 
-        while (!Raylib.WindowShouldClose())
+        while (!ShouldExit)
         {
             Update();
             Render();
+            if(Raylib.WindowShouldClose()) {
+                ShouldExit = true;
+            }
         }
 
         Raylib.CloseAudioDevice();
@@ -137,7 +140,6 @@ static class GameSystem {
         if (currentScene is LevelScene level && level.Player.PlayerKilled){
             currentScene = MockLevel();
         }
-        UIScene.Update();
 
         UpdateUI();
     }
@@ -152,7 +154,6 @@ static class GameSystem {
         Raylib.BeginDrawing();
             Raylib.ClearBackground(ClearColor);
             RenderObjects();
-            UIScene.Render();
             RenderUI();
 
         Raylib.EndDrawing();

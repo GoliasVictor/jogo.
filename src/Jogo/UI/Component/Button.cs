@@ -15,7 +15,6 @@ class Button(Vector2 size, Color color, UIComponent component, Color? hoverColor
             IsHover = true;
             if (Raylib.IsMouseButtonPressed(MouseButton.Left)){
                 ButtonPressed?.Invoke(this, EventArgs.Empty);
-                Console.WriteLine("Hello");
             }
         } else {
             IsHover = false;
