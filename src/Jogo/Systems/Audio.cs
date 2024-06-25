@@ -134,6 +134,7 @@ namespace Jogo.Systems
             this.currentMusic = GetMusic(song);
             if (!Raylib.IsMusicStreamPlaying(this.currentMusic))
                 Raylib.PlayMusicStream(this.currentMusic);
+            Raylib.SetMusicVolume(this.currentMusic, 0.4f);
             this.Update();
         }
 
