@@ -1,4 +1,6 @@
 
+using Raylib_cs;
+
 public class LevelManagerScene : IScene
 {
     private const string LevelListPath = @"Levels/custom-levels.yaml";
@@ -33,7 +35,7 @@ public class LevelManagerScene : IScene
 
     public void Update()
     {
-        if(currentLevel.Player.PlayerKilled) {
+        if(currentLevel.Player.PlayerKilled || Raylib.IsKeyPressed(KeyboardKey.R)) {
             SetLevel((uint) levelIndex);
         }else if(currentLevel.levelWon) {
             SetLevel((uint) levelIndex + 1);

@@ -26,12 +26,24 @@ public class LevelBuilderScene : IScene
 
     private const string CustomLevelPath = @"Levels/custom-levels.yaml";
 
+    private int _index;
     private bool _isTesting = false;
     private Map _map;
     private LevelScene _testScene;
     private string _mapBackup = "";
     private GridVec2 _selection = GridVec2.ZERO;
-    private int index;
+    private int index {
+        get => _index;
+        set {
+            int levelCount = LevelLoader.GetLevelCount(CustomLevelPath);
+            if(value > levelCount)
+                value = levelCount;
+            _index = value;
+            _map = LevelLoader.LoadFromYaml(CustomLevelPath, value);
+            _mapBackup = LevelLoader.ParseMap(_map);
+            _testScene = new LevelScene([new TickUpdateSystem(), new CollisionSystem(), new ItemCollectionSystem()], _map);
+        }
+    }
 
     private bool IsTesting {
         get => _isTesting;
@@ -68,6 +80,8 @@ public class LevelBuilderScene : IScene
                 IsTesting = false;
             }
         }else {
+            index += (int) Raylib.IsKeyPressed(KeyboardKey.Equal) - (int) Raylib.IsKeyPressed(KeyboardKey.Minus);
+
             _selection.i += (int) Raylib.IsKeyPressed(KeyboardKey.Down) - (int) Raylib.IsKeyPressed(KeyboardKey.Up);
             _selection.j += (int)(Raylib.IsKeyPressed(KeyboardKey.Right) - Raylib.IsKeyPressed(KeyboardKey.Left));
 
@@ -78,7 +92,7 @@ public class LevelBuilderScene : IScene
             HandleCell();
 
             if(Raylib.IsKeyDown(KeyboardKey.LeftControl) && Raylib.IsKeyPressed(KeyboardKey.S)) {
-                index = LevelLoader.StoreMap(_map, CustomLevelPath, index);
+                _index = LevelLoader.StoreMap(_map, CustomLevelPath, index);
             }
         }
     }
@@ -169,8 +183,8 @@ public class LevelBuilderScene : IScene
                 Raylib.DrawRectangleLines(_selection.j * GameSystem.TileSize, _selection.i * GameSystem.TileSize, GameSystem.TileSize, GameSystem.TileSize, Color.RayWhite);
 
             Raylib.EndMode2D();
+            Raylib.DrawText($"Level: {index}", 0, 0, 20, Color.RayWhite);
         }
-        Raylib.DrawFPS(0,120);
     }
 
     public void ViewSizeChanged() {

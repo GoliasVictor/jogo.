@@ -3,8 +3,6 @@ using Raylib_cs;
 
 class MainMenuScene : UIScene
 {
-    private readonly UIScene UI;
-
     public MainMenuScene () : base() {
         Vector2 ContainerSize = new Vector2(GameSystem.DefaultWindowWidth, GameSystem.DefaultWindowHeight);
         Button newGameButton = MenuButtonText("Novo Jogo");
@@ -44,7 +42,7 @@ class MainMenuScene : UIScene
 
     private void OnLevelBuilderButtonPressed(object? sender, EventArgs e)
     {
-        Console.WriteLine("Opening builder...");
+        GameSystem.currentScene = new LevelBuilderScene(0);
     }
 
     private void OnExitButtonPressed(object? sender, EventArgs e)
