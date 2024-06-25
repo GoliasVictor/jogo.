@@ -32,7 +32,8 @@ public class LevelBuilderScene : IScene
     private LevelScene _testScene;
     private string _mapBackup = "";
     private GridVec2 _selection = GridVec2.ZERO;
-    private int index {
+    private LevelBuilderUI ui;
+    public int index {
         get => _index;
         set {
             if(value == _index || value < 0) return;
@@ -46,7 +47,7 @@ public class LevelBuilderScene : IScene
         }
     }
 
-    private bool IsTesting {
+    public bool IsTesting {
         get => _isTesting;
         set {
             if(value) {
@@ -68,6 +69,7 @@ public class LevelBuilderScene : IScene
         _map = LevelLoader.LoadFromYaml(CustomLevelPath, index);
         _mapBackup = LevelLoader.ParseMap(_map);
         _testScene = new LevelScene([new TickUpdateSystem(), new CollisionSystem(), new ItemCollectionSystem()], _map);
+        ui = new LevelBuilderUI(this);
     }
 
     public void Update()
@@ -93,9 +95,10 @@ public class LevelBuilderScene : IScene
             HandleCell();
 
             if(Raylib.IsKeyDown(KeyboardKey.LeftControl) && Raylib.IsKeyPressed(KeyboardKey.S)) {
-                _index = LevelLoader.StoreMap(_map, CustomLevelPath, index);
+                SaveMap();
             }
         }
+        ui.Update();
     }
 
     /// <summary>
@@ -176,6 +179,7 @@ public class LevelBuilderScene : IScene
     public void Render()
     {
         _testScene.Render();
+        ui.Render();
         if(IsTesting) {
             Raylib.DrawText("Testing...", 0, 0, 20, Color.RayWhite);
         }else {
@@ -184,8 +188,15 @@ public class LevelBuilderScene : IScene
                 Raylib.DrawRectangleLines(_selection.j * GameSystem.TileSize, _selection.i * GameSystem.TileSize, GameSystem.TileSize, GameSystem.TileSize, Color.RayWhite);
 
             Raylib.EndMode2D();
-            Raylib.DrawText($"Level: {index}", 0, 0, 20, Color.RayWhite);
+            Raylib.DrawText($"Level: {index + 1}", 0, 0, 20, Color.RayWhite);
         }
+    }
+
+    /// <summary>
+    /// Saves the current map.
+    /// </summary>
+    public void SaveMap() {
+        _index = LevelLoader.StoreMap(_map, CustomLevelPath, index);
     }
 
     public void ViewSizeChanged() {
