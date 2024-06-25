@@ -179,7 +179,6 @@ public class LevelBuilderScene : IScene
     public void Render()
     {
         _testScene.Render();
-        ui.Render();
         if(IsTesting) {
             Raylib.DrawText("Testing...", 0, 0, 20, Color.RayWhite);
         }else {
@@ -190,6 +189,7 @@ public class LevelBuilderScene : IScene
             Raylib.EndMode2D();
             Raylib.DrawText($"Level: {index + 1}", 0, 0, 20, Color.RayWhite);
         }
+        ui.Render();
     }
 
     /// <summary>
