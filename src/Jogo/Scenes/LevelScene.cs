@@ -14,7 +14,6 @@ using Raylib_cs;
 class LevelScene(ISystem<LevelScene>[] systems, Map map) : IScene
 {
     private const int blockMargin = 1;
-    private HUD _hud = new HUD();
 
     ISystem<LevelScene>[] systems = systems;
 
@@ -46,7 +45,7 @@ class LevelScene(ISystem<LevelScene>[] systems, Map map) : IScene
     /// <summary>
     /// Renders the floor of the level scene.
     /// </summary>
-    /// <param name="start_x">The starting x-coordinate of the floor.</param>
+    /// <param name="start_x">The starting xcoordinate of the floor.</param>
     /// <param name="start_y">The starting y-coordinate of the floor.</param>
     void RenderFloor(int start_x, int start_y)
     {
